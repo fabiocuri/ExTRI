@@ -4,12 +4,14 @@ Pipeline:
 
    python3 ImportTrainingData.py
 
-2. Retrieve abstracts in PubTator format with GNormPLus in perl
+2. Retrieve abstracts in PubTator format with GNormPLus in perl and annotate entities with GNormPlus in java
 
    cd ../GNormPlusPerl
    bash retrieve_training_pmids.sh
-
-3. Annotate genes with GNormPlus in java
-
+   
    cd ../GNormPlusJava
    bash annotate_training_pmids.sh
+   
+3. Build final training set with replaced entities.
+
+    python3 PreprocessTrainingData.py
