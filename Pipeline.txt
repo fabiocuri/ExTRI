@@ -1,0 +1,15 @@
+Pipeline:
+
+1. Obtain list of training PMIDs
+
+   python3 ImportTrainingData.py
+
+2. Retrieve abstracts in PubTator format with GNormPLus in perl
+
+   cd ../GNormPlusPerl
+   bash retrieve_training_pmids.sh
+
+3. Annotate genes with GNormPlus in java
+
+   cd ../GNormPlusJava
+   bash annotate_training_pmids.sh
