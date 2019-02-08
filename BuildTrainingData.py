@@ -20,8 +20,7 @@ simulation_IB = list(map(concat_func,titles_annotated_preprocessed,abstracts_ann
 simulation_IIA = abstracts_preprocessed
 simulation_IIB = abstracts_annotated_preprocessed
 
-list_as_txt(simulation_IA, cwd + '/simulations/simulation_IA.txt')
-list_as_txt(simulation_IB, cwd + '/simulations/simulation_IB.txt')
-list_as_txt(simulation_IIA, cwd + '/simulations/simulation_IIA.txt')
-list_as_txt(simulation_IIB, cwd + '/simulations/simulation_IIB.txt')
-
+list_as_txt(simulation_IA, cwd + '/simulations/simulation_IA_preprocessed.txt')
+list_as_txt(simulation_IB, cwd + '/simulations/simulation_IB_preprocessed.txt')
+list_as_txt(simulation_IIA, cwd + '/simulations/simulation_IIA_preprocessed.txt')
+list_as_txt(simulation_IIB, cwd + '/simulations/simulation_IIB_preprocessed.txt')
