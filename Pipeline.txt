@@ -19,3 +19,13 @@ Pipeline:
 4. Preprocess training set.
 
     python3 PreprocessTrainingData.py
+    
+>>SIMULATIONS<<
+
+I. A. Titles + abstract
+   B. Titles + abstract (with GNorm entitites)
+   
+II. A. Abstract
+   B. Abstract (with GNorm entitites)
+   
+
