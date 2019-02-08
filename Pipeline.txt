@@ -15,3 +15,7 @@ Pipeline:
 3. Build training set with replaced entities.
 
     python3 ExportTrainingDataWithEntities.py
+    
+4. Preprocess training set.
+
+    python3 PreprocessTrainingData.py
