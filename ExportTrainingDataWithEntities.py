@@ -11,32 +11,6 @@ from collections import defaultdict
 from langdetect import detect
 from textblob import TextBlob
 
-nltk.download('punkt')
-
-stop_words = set(stopwords.words('english')) 
-punctuation = list(string.punctuation)
-
-cwd = os.getcwd()
-
-# Import training data
-
-training_data = pd.DataFrame.from_csv(cwd + '/abstracts.all.labeled.csv', sep='\t|\n')
-PMIDs = list(training_data.index)
-
-# Import annotated abstracts
-
-abstracts_annotated = defaultdict(list)
-
-for root, dirs, files in os.walk(cwd + '/annotated_training_data'):
-    for file in files:
-        if file.endswith('.txt'):
-            PMID=file.replace('.txt', '')
-            with open(cwd + '/annotated_training_data/' + file, "r") as f:
-                if PMID in files:
-                    continue
-                abstracts_annotated[str(PMID)] = f.readlines()
-
-
 def replace_entities(df, annotated_dictionary):
     
     # Replace abstracts by extracted entitites.
@@ -158,22 +132,49 @@ def list_as_txt(l, l_name):
         for item in l:
             f.write("%s\n" % item)
 
+if '__main__' == __name__:
 
-training_data = replace_entities(training_data, abstracts_annotated)
-training_data = dataframe_in_english(training_data)
+    nltk.download('punkt')
 
-abstracts = list(training_data['abstract'])
-abstracts_annotated = list(training_data['abstract_annotated'])
-titles = list(training_data['title'])
-titles_annotated = list(training_data['title_annotated'])
-has_tf = list(training_data['has_tf'])
-mammal = list(training_data['mammal']) 
+    stop_words = set(stopwords.words('english')) 
+    punctuation = list(string.punctuation)
 
-# Export training data
+    cwd = os.getcwd()
 
-list_as_txt(abstracts, 'abstracts.txt')
-list_as_txt(abstracts_annotated, 'abstracts_annotated.txt')
-list_as_txt(titles, 'titles.txt')
-list_as_txt(titles_annotated, 'titles_annotated.txt')
-list_as_txt(has_tf, 'has_tf.txt')
-list_as_txt(mammal, 'mammal.txt')
+    # Import training data
+
+    training_data = pd.DataFrame.from_csv(cwd + '/abstracts.all.labeled.csv', sep='\t|\n')
+    PMIDs = list(training_data.index)
+
+    # Import annotated abstracts
+
+    abstracts_annotated = defaultdict(list)
+
+    for root, dirs, files in os.walk(cwd + '/annotated_training_data'):
+        for file in files:
+            if file.endswith('.txt'):
+                PMID=file.replace('.txt', '')
+                with open(cwd + '/annotated_training_data/' + file, "r") as f:
+                    if PMID in files:
+                        continue
+                    abstracts_annotated[str(PMID)] = f.readlines()
+
+
+    training_data = replace_entities(training_data, abstracts_annotated)
+    training_data = dataframe_in_english(training_data)
+
+    abstracts = list(training_data['abstract'])
+    abstracts_annotated = list(training_data['abstract_annotated'])
+    titles = list(training_data['title'])
+    titles_annotated = list(training_data['title_annotated'])
+    has_tf = list(training_data['has_tf'])
+    mammal = list(training_data['mammal']) 
+
+    # Export training data
+
+    list_as_txt(abstracts, 'abstracts.txt')
+    list_as_txt(abstracts_annotated, 'abstracts_annotated.txt')
+    list_as_txt(titles, 'titles.txt')
+    list_as_txt(titles_annotated, 'titles_annotated.txt')
+    list_as_txt(has_tf, 'has_tf.txt')
+    list_as_txt(mammal, 'mammal.txt')
