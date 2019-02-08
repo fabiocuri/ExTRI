@@ -47,6 +47,7 @@ def replace_entities(df, annotated_dictionary):
 
         abstract = df['abstract'][PMID]
         title = df['title'][PMID]
+        
         entities = annotated_dictionary[str(PMID)]
 
         if len(entities) > 3: # If there are entitites extracted from GNormPLUS ...
@@ -83,14 +84,24 @@ def replace_entities(df, annotated_dictionary):
                 titles_with_entities.append(' '.join(title))
 
             else:
-
-                titles_with_entities.append(title)
+                
                 abstracts_with_entities.append(np.nan)
+                title = nltk.word_tokenize(title)
+                titles_with_entities.append(' '.join(title))
 
         else:
 
-            titles_with_entities.append(title)
-            abstracts_with_entities.append(abstract)
+            if abstract is not np.nan:
+            
+                abstract = nltk.word_tokenize(abstract)
+                abstracts_with_entities.append(' '.join(abstract))
+
+            else:
+
+                abstracts_with_entities.append(np.nan)
+
+            title = nltk.word_tokenize(title)
+            titles_with_entities.append(' '.join(title))
 
     df['title_annotated'] = titles_with_entities        
     df['abstract_annotated'] = abstracts_with_entities
@@ -166,4 +177,3 @@ list_as_txt(titles, 'titles.txt')
 list_as_txt(titles_annotated, 'titles_annotated.txt')
 list_as_txt(has_tf, 'has_tf.txt')
 list_as_txt(mammal, 'mammal.txt')
-
