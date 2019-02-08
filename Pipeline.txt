@@ -12,6 +12,6 @@ Pipeline:
    cd ../GNormPlusJava
    bash annotate_training_pmids.sh
    
-3. Build final training set with replaced entities.
+3. Build training set with replaced entities.
 
-    python3 PreprocessTrainingData.py
+    python3 ExportTrainingDataWithEntities.py
