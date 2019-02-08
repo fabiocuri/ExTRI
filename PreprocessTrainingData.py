@@ -37,27 +37,6 @@ def preprocess_for_ML(l):
     
     return preprocessed_txt
 
-
-def preprocess_for_ML(l):
-
-    preprocessed_txt = []
-    
-    for s in l:
-        if s is not np.nan:
-
-            filtered_sentence = nltk.word_tokenize(s.lower())
-            filtered_sentence = [w for w in filtered_sentence if not w in stop_words and not w in punctuation] 
-            filtered_sentence = ' '.join(filtered_sentence)
-            filtered_sentence = [x for x in filtered_sentence if not x in punctuation]
-            filtered_sentence = ''.join(filtered_sentence)
-            preprocessed_txt.append(filtered_sentence)
-
-        else:
-
-            preprocessed_txt.append(np.nan)     
-    
-    return preprocessed_txt
-
 if '__main__' == __name__:
 
     cwd = os.getcwd()
