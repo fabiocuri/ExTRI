@@ -2,7 +2,7 @@ Pipeline:
 
 1. Obtain list of training PMIDs
 
-   python3 ImportTrainingData.py
+   python3 ImportAnnotatedData.py
 
 2. Retrieve abstracts in PubTator format with GNormPLus in perl and annotate entities with GNormPlus in java
 
@@ -10,15 +10,15 @@ Pipeline:
    bash retrieve_training_pmids.sh
    
    cd ../GNormPlusJava
-   bash annotate_training_pmids.sh
+   bash annotate_pmids.sh
    
 3. Build training set with replaced entities
 
-   python3 ExportTrainingDataWithEntities.py
+   python3 ExportAnnotatedDataWithEntities.py
     
 4. Preprocess training set
 
-   python3 PreprocessTrainingData.py
+   python3 PreprocessAnnotatedData.py
     
 5. Build preprocessed training sets for Machine Learning
 
@@ -39,5 +39,3 @@ I. A. Titles + abstract
    
 II. A. Abstract
    B. Abstract (with GNorm entitites)
-   
-
