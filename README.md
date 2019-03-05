@@ -27,7 +27,7 @@ Date: 05.03.2019
 
 2. Train and apply Byte-Pair Encoding (BPE.sh)
 
-3. Train GloVe models for each training set with vectors of size 100 (glove/demo.sh)
+3. Train GloVe models of size 100 (glove.sh)
 
 
 >>>>> Run classification <<<<<
