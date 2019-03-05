@@ -21,7 +21,7 @@ Date: 05.03.2019
 
 1. Build and preprocess data, concatenate features to text and export training sets (BuildPreprocessExportTrainingData.py)
 
-2. Run BPE (BPE.sh)
+2. Train and apply Byte-Pair Encoding (BPE.sh)
 
 3. Train GloVe models for each training set with vectors of size 100 (glove/demo.sh)
 
