@@ -19,7 +19,7 @@ Date: 05.03.2019
 
 >>>>> Preprocess data <<<<<
 
-1. Build and preprocess annotated data with replaced entities, concatenate text features and export training sets (BuildPreprocessExportTrainingData.py)
+1. Build and preprocess data, concatenate features to text and export training sets (BuildPreprocessExportTrainingData.py)
 
 2. Run BPE (BPE.sh)
 
