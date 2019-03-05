@@ -18,12 +18,20 @@ def write_list(l, l_name, iterate, encoding):
 
     ''' Export list '''
 
-    with open(l_name, 'w', encoding=encoding) as f:
-        if iterate:
-            for item in l:
-                f.write("%s\n" % item)
-        else:
-            f.write("%s\n" % l)
+    if encoding is not None:
+        with open(l_name, 'w', encoding=encoding) as f:
+            if iterate:
+                for item in l:
+                    f.write("%s\n" % item)
+            else:
+                f.write("%s\n" % l)
+    else:
+        with open(l_name, 'w') as f:
+            if iterate:
+                for item in l:
+                    f.write("%s\n" % item)
+            else:
+                f.write("%s\n" % l)
 
 if '__main__' == __name__:
     
