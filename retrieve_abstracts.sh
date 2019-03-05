@@ -1,5 +1,5 @@
 #!/bin/bash
-filename='../ExTRI-master/training_pmid.txt'
+filename='../ExTRI-master/list_pmid.txt'
 filelines=`cat $filename`
 echo Start
 for line in $filelines ; do
