@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -19,12 +18,11 @@ def write_list(l, l_name, iterate, encoding):
 
     ''' Export list '''
 
-    if iterate:
-        with open(l_name, 'w', encoding=encoding) as f:
+    with open(l_name, 'w', encoding=encoding) as f:
+        if iterate:
             for item in l:
                 f.write("%s\n" % item)
-    else:
-        with open(l_name, 'w', encoding=encoding) as f:
+        else:
             f.write("%s\n" % l)
 
 if '__main__' == __name__:
