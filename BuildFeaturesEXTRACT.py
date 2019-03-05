@@ -11,14 +11,16 @@ def build_EXTRACT_features(abstracts_PMIDs):
    
     entities = ['Biological process', 'Cellular component', 'Chemical compound', 'Disease',
                 'Environment', 'Homo sapiens gene', 'Molecular function', 'Organism', 'Phenotype', 'Tissue']
+      
+    annotated_labels = ['mammal', 'has_tf', 'has_exp', 'chip', 'cotf', 'emsa', 'footp', 'lucifer', 'y1h', 'rgene',
+                        'swblot', 'label']
+   
     abstracts, abstracts_annotated, titles, titles_annotated, pmid_order = [], [], [], [], []
 
-    for i in range(len(entities) + 12):
+    for i in range(len(entities) + len(annotated_labels)):
         globals()['l_%s' % i] = []
 
     ann = pd.read_csv(cwd + '/abstracts.all.labeled.csv', sep='\n|\t', encoding=encoding, engine='python')
-    annotated_labels = ['mammal', 'has_tf', 'has_exp', 'chip', 'cotf', 'emsa', 'footp', 'lucifer', 'y1h', 'rgene',
-                        'swblot', 'label']
 
     for PMID in abstracts_PMIDs:  # Check all PMIDs
 
@@ -93,8 +95,10 @@ def build_EXTRACT_features(abstracts_PMIDs):
 
     for i in range(len(entities)):
         df[entities[i]] = globals()['l_%s' % i]
-        for j in range(len(annotated_labels)):
-            df[annotated_labels[i]] = globals()['l_%s' % j]
+         
+    for j in range(len(annotated_labels)):
+        idx = j + len(entities)
+        df[annotated_labels[j]] = globals()['l_%s' % idx]
 
     return df
 
