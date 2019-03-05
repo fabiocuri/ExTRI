@@ -9,6 +9,8 @@ from ExportPMIDs import read_as_list
 
 def build_EXTRACT_features(abstracts_PMIDs):
    
+   ''' Merge EXTRACT features with handly annotated '''
+   
     entities = ['Biological process', 'Cellular component', 'Chemical compound', 'Disease',
                 'Environment', 'Homo sapiens gene', 'Molecular function', 'Organism', 'Phenotype', 'Tissue']
       
