@@ -3,7 +3,6 @@
 Detection of TRI interactions through Deep Learning.
 
 Author: Fabio Curi Paixao
-Date: 05.03.2019
 
 ## Pipeline to train Deep Learning classifiers to detect TRI interactions 
 
