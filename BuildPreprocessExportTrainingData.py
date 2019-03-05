@@ -10,7 +10,6 @@ from textblob import TextBlob
 from spacy.lang.en.stop_words import STOP_WORDS
 from ExportPMIDs import write_list
 
-
 def translate(l):
     l = TextBlob(l)
     try:
@@ -71,16 +70,20 @@ def preprocess(l):
 
 if '__main__' == __name__:
 
-    encoding = "latin-1"
-
     nltk.download('punkt')
     cwd = os.getcwd()
 
     stop_words = list(set(list(STOP_WORDS) + list(nltk.corpus.stopwords.words('english'))))
     punctuation = list(string.punctuation)
 
-    df = pd.read_csv(cwd + '/data_all_labels.csv', engine='python', encoding=encoding)
+    df = pd.read_csv(cwd + '/data_all_labels.csv', engine='python')
     df = df.drop(columns=['Unnamed: 0'])
+
+    # Drop duplicates
+    df = df.drop_duplicates(subset='pmid', keep="last")
+
+    # Drop rows without abstract
+    df = df.loc[df['abstracts'] != '-No abstract-']
 
     df = dataframe_in_english(df)
 
@@ -115,16 +118,16 @@ if '__main__' == __name__:
     IIB_F = list(map(concat_func_text_features, IIB, biological_features))
 
     # X training
-    write_list(IA, cwd + '/simulations/IA.txt', iterate=True, encoding=encoding)
-    write_list(IB, cwd + '/simulations/IB.txt', iterate=True, encoding=encoding)
-    write_list(IIA, cwd + '/simulations/IIA.txt', iterate=True, encoding=encoding)
-    write_list(IIB, cwd + '/simulations/IIB.txt', iterate=True, encoding=encoding)
+    write_list(IA, cwd + '/simulations/IA.txt', iterate=True, encoding=None)
+    write_list(IB, cwd + '/simulations/IB.txt', iterate=True, encoding=None)
+    write_list(IIA, cwd + '/simulations/IIA.txt', iterate=True, encoding=None)
+    write_list(IIB, cwd + '/simulations/IIB.txt', iterate=True, encoding=None)
 
     # X training with features
-    write_list(IA_F, cwd + '/simulations/IA_F.txt', iterate=True, encoding=encoding)
-    write_list(IB_F, cwd + '/simulations/IB_F.txt', iterate=True, encoding=encoding)
-    write_list(IIA_F, cwd + '/simulations/IIA_F.txt', iterate=True, encoding=encoding)
-    write_list(IIB_F, cwd + '/simulations/IIB_F.txt', iterate=True, encoding=encoding)
+    write_list(IA_F, cwd + '/simulations/IA_F.txt', iterate=True, encoding=None)
+    write_list(IB_F, cwd + '/simulations/IB_F.txt', iterate=True, encoding=None)
+    write_list(IIA_F, cwd + '/simulations/IIA_F.txt', iterate=True, encoding=None)
+    write_list(IIB_F, cwd + '/simulations/IIB_F.txt', iterate=True, encoding=None)
 
     # y training set
-    write_list(d['label'], cwd + '/simulations/labels.txt', iterate=True, encoding=encoding)
+    write_list(d['label'], cwd + '/simulations/labels.txt', iterate=True, encoding=None)
