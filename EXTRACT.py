@@ -14,6 +14,8 @@ import pyperclip
 from random import shuffle
 
 def annotate_with_EXTRACT(abstracts_PMIDs):
+    
+    ''' Scrape all entities extracted by EXTRACT '''
 
     driver = webdriver.Chrome()
     encoding = "latin-1"
