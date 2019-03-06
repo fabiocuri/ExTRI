@@ -56,17 +56,6 @@ def categorize_features(l, dictionary):
 
     return l_final
 
-def pretty_print_coefs(coefs, names = None, sort = False):
-
-    if names == None:
-        names = ["X%s" % x for x in range(len(coefs))]
-    lst = zip(coefs, names)
-    if sort:
-        lst = sorted(lst,  key = lambda x:-np.abs(x[0]))
-
-    return " + ".join("%s * %s" % (round(coef, 3), name)
-                                   for coef, name in lst)
-
 def feature_selection(X, y):
 
     ''' Feature selection using different algorithms '''
@@ -131,7 +120,7 @@ if '__main__' == __name__:
 
     dic = {'false': 0, 'true': 1, 'nan': 2}
     biological_features = categorize_features(biological_features, dic)
-    labels = [dic[x] for x in d['label']]
+    labels = list(d['label'])
 
     # Feature selection
 
@@ -141,8 +130,7 @@ if '__main__' == __name__:
 
     concat_func_biological_features = lambda a, b, c, d: str(a) + " " + str(b) + " " + str(c) + " " + str(d)
 
-    biological_features = list(
-        map(concat_func_biological_features, d['has_tf'], d['has_exp'], d['chip'], d['emsa']))
+    biological_features = list(map(concat_func_biological_features, d['has_tf'], d['has_exp'], d['chip'], d['emsa']))
 
     # Build datasets
 
