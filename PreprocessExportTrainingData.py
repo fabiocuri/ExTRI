@@ -10,19 +10,9 @@ from textblob import TextBlob
 from spacy.lang.en.stop_words import STOP_WORDS
 from ExportPMIDs import write_list
 
-def translate(l):
-    l = TextBlob(l)
-    try:
-        l = str(l.translate(to="en"))
-    except:
-        l = l
+def language_identifier(df):
 
-    return l
-
-def dataframe_in_english(df):
-    ''' Make sure all data is in English '''
-
-    # Language identification to make sure all papers are in English
+    ''' Language identifier'''
 
     lang_abstract = []
 
@@ -30,27 +20,11 @@ def dataframe_in_english(df):
         lang_abstract.append(detect(abstract))
 
     df['lang_abstract'] = lang_abstract
-    list_languages = list(set(lang_abstract))
-    foreign_languages = [x for x in list_languages if x not in ['en']]
-
-    for FL in foreign_languages:
-
-        new_df = df.loc[df['lang_abstract'] == FL]
-
-        for abstract, abstract_annotated, title, title_annotated, PMID in zip(new_df['abstracts'],
-                                                                              new_df['abstracts_annotated'],
-                                                                              new_df['titles'],
-                                                                              new_df['titles_annotated'],
-                                                                              new_df['pmid']):
-            df.abstracts[PMID] = translate(abstract)
-            df.abstracts_annotated[PMID] = translate(abstract_annotated)
-
-            df.titles[PMID] = translate(title)
-            df.titles_annotated[PMID] = translate(title_annotated)
 
     return df
 
 def preprocess(l):
+
     ''' Preprocess data '''
 
     l = [str(x) for x in l]
@@ -81,11 +55,15 @@ if '__main__' == __name__:
 
     # Drop duplicates
     df = df.drop_duplicates(subset='pmid', keep="last")
-
     # Drop rows without abstract
     df = df.loc[df['abstracts'] != '-No abstract-']
-
-    df = dataframe_in_english(df)
+    # Drop rows without labels
+    df = df.loc[df['label'] != ""]
+    # Drop NaNs
+    df = df.dropna()
+    # Drop Non-English abstracts
+    df = language_identifier(df)
+    df = df.loc[df['lang_abstract'] == 'en']
 
     d = {}
 
