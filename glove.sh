@@ -6,7 +6,7 @@ set -e
 
 make
 
-DATA=("IA" "IB" "IIA" "IIB" "IA_F" "IB_F" "IIA_F" "IIB_F")
+DATA=("IA" "IB" "IIA" "IIB" "IA_F" "IB_F" "IIA_F" "IIB_F" "IA_BPE" "IB_BPE" "IIA_BPE" "IIB_BPE" "IA_F_BPE" "IB_F_BPE" "IIA_F_BPE" "IIB_F_BPE")
 
 for NAME in ${DATA[@]}; do
 
