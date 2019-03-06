@@ -33,5 +33,4 @@ Author: Fabio Curi Paixao
 
 ### Run classification
 
-1. Run models (RunRNN.py, RunCNN.py, RunHAN.py) 
-
+1. Run model selection (bash_RNN.sh, bash_CNN.sh, bash_HAN.sh) 
