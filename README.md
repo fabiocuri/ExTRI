@@ -26,7 +26,9 @@ Author: Fabio Curi Paixao
 
 2. Train and apply Byte-Pair Encoding (BPE.sh)
 
-3. Train GloVe models of size 100 (glove.sh)
+3. Download GloVe and install it correctly: https://nlp.stanford.edu/projects/glove/
+
+4. Train GloVe embeddings (glove.sh)
 
 
 ### Run classification
