@@ -27,14 +27,6 @@ import itertools
 import argparse
 from PreprocessExportTrainingData import categorize_features
 
-def categorize_list(l, dictionary):
-
-    l_categorized = []
-    for l_ in l:
-        l_categorized.append(dictionary[l_])
-
-    return l_categorized
-
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
                           title='Confusion matrix',
@@ -267,6 +259,9 @@ def run_RNN(X, labels, path_to_glove, MNW, LSTMD, ATT, OPT, model_name):
         checkpoint = ModelCheckpoint(model_filepath, monitor='val_loss', verbose = 0, save_best_only=True, mode='min')
         callbacks_list = [early_stopping, checkpoint]
 
+        if experiment_mode:
+            callbacks_list = [early_stopping]
+
         history = model.fit(X_train_resampled, y_train_resampled, validation_data=(x_val, y_val), epochs=20, callbacks=callbacks_list, verbose = 0)
 
         # Predictions 
@@ -293,6 +288,8 @@ def run_RNN(X, labels, path_to_glove, MNW, LSTMD, ATT, OPT, model_name):
     f.close()
 
 if '__main__' == __name__:
+
+    experiment_mode = True
 
     encoding = 'latin-1'
 
