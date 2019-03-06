@@ -22,7 +22,7 @@ Author: Fabio Curi Paixao
 
 ### Preprocess data 
 
-1. Build and preprocess data, concatenate features to text and export training sets (PreprocessExportTrainingData.py)
+1. Build and preprocess data, perform feature selection, concatenate features to text and export training sets (PreprocessExportTrainingData.py)
 
 2. Train and apply Byte-Pair Encoding (BPE.sh)
 
