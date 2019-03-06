@@ -9,6 +9,11 @@ from langdetect import detect
 from textblob import TextBlob
 from spacy.lang.en.stop_words import STOP_WORDS
 from ExportPMIDs import write_list
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+import numpy as np
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
 
 def language_identifier(df):
 
@@ -30,7 +35,6 @@ def preprocess(l):
     l = [str(x) for x in l]
 
     preprocessed_l = []
-
     for s in l:
         filtered_sentence = nltk.word_tokenize(s.lower())
         filtered_sentence = [w for w in filtered_sentence if not w in stop_words and not w in punctuation]
@@ -41,6 +45,46 @@ def preprocess(l):
 
     return preprocessed_l
 
+def categorize_features(l, dictionary):
+
+    l_final = []
+    for l_row in l:
+        f_ = []
+        for f in l_row.split():
+            f_.append(dictionary[f])
+        l_final.append(f_)
+
+    return l_final
+
+def pretty_print_coefs(coefs, names = None, sort = False):
+
+    if names == None:
+        names = ["X%s" % x for x in range(len(coefs))]
+    lst = zip(coefs, names)
+    if sort:
+        lst = sorted(lst,  key = lambda x:-np.abs(x[0]))
+
+    return " + ".join("%s * %s" % (round(coef, 3), name)
+                                   for coef, name in lst)
+
+def feature_selection(X, y):
+
+    ''' Feature selection using different algorithms '''
+
+    test = SelectKBest(score_func=chi2, k=4)
+    fit = test.fit(biological_features, labels)
+    np.set_printoptions(precision=3)
+    print('Chi-squared')
+    print(fit.scores_)
+    print('')
+
+    model = RandomForestClassifier()
+    rfe = RFE(model, 3)
+    fit = rfe.fit(X, y)
+    print('RFE + LogisticRegression')
+    print("Selected Features: %s" % (fit.support_))
+    print("Feature Ranking: %s" % (fit.ranking_))
+    print('')
 
 if '__main__' == __name__:
 
@@ -70,14 +114,7 @@ if '__main__' == __name__:
     for i, column_name in enumerate(df.columns):
         d[column_name] = preprocess(list(df[column_name]))
 
-    # Build datasets
-
-    concat_func_text_features = lambda x, y: str(x) + " " + str(y)
-
-    IA = list(map(concat_func_text_features, d['titles'], d['abstracts']))
-    IB = list(map(concat_func_text_features, d['titles_annotated'], d['abstracts_annotated']))
-    IIA = d['abstracts']
-    IIB = d['abstracts_annotated']
+    # Merge all features
 
     concat_func_biological_features = lambda a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u: str(
         a) + " " + str(b) + " " + str(c) + " " + str(d) + " " + str(e) + " " + str(f) + " " + str(g) + " " + str(
@@ -89,6 +126,32 @@ if '__main__' == __name__:
             d['Disease'], d['Environment'], d['Homo sapiens gene'], d['Molecular function'], d['Organism'],
             d['Phenotype'], d['Tissue'], d['mammal'], d['has_tf'], d['has_exp'], d['chip'], d['cotf'], d['emsa'],
             d['footp'], d['lucifer'], d['y1h'], d['rgene'], d['swblot']))
+
+    # Categorize features and label
+
+    dic = {'false': 0, 'true': 1, 'nan': 2}
+    biological_features = categorize_features(biological_features, dic)
+    labels = [dic[x] for x in d['label']]
+
+    # Feature selection
+
+    feature_selection(biological_features, labels)
+
+    # Final features after feature selection
+
+    concat_func_biological_features = lambda a, b, c, d: str(a) + " " + str(b) + " " + str(c) + " " + str(d)
+
+    biological_features = list(
+        map(concat_func_biological_features, d['has_tf'], d['has_exp'], d['chip'], d['emsa']))
+
+    # Build datasets
+
+    concat_func_text_features = lambda x, y: str(x) + " " + str(y)
+
+    IA = list(map(concat_func_text_features, d['titles'], d['abstracts']))
+    IB = list(map(concat_func_text_features, d['titles_annotated'], d['abstracts_annotated']))
+    IIA = d['abstracts']
+    IIB = d['abstracts_annotated']
 
     IA_F = list(map(concat_func_text_features, IA, biological_features))
     IB_F = list(map(concat_func_text_features, IB, biological_features))
@@ -109,3 +172,6 @@ if '__main__' == __name__:
 
     # y training set
     write_list(d['label'], cwd + '/simulations/labels.txt', iterate=True, encoding=None)
+
+    # Features
+    write_list(biological_features, cwd + '/simulations/biological_features.txt', iterate=True, encoding=None)
