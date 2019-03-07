@@ -6,7 +6,6 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils.np_utils import to_categorical
 from keras.layers import Dense, Input, Embedding, Flatten
-from RunRNN import categorize_list, plot_confusion_matrix
 from keras.layers import Conv1D, MaxPooling1D, Embedding, Dropout
 from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix
 from keras.models import Model
@@ -59,14 +58,6 @@ def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, model_name):
 
     data = pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
 
-    # Shuffle data
-
-    indices = np.arange(data.shape[0])
-    np.random.shuffle(indices)
-    data = data[indices]
-    labels = labels[indices]
-    nb_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
-
     # Run Model with Cross-validation
 
     n_folds = 10
@@ -75,6 +66,14 @@ def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, model_name):
     for n_ in range(n_folds):
 
         print('Running fold ' + str(n_))
+
+        # Shuffle data
+
+        indices = np.arange(data.shape[0])
+        np.random.shuffle(indices)
+        data = data[indices]
+        labels = labels[indices]
+        nb_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
 
         # Split data
 
