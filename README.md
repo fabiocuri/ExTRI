@@ -40,3 +40,5 @@ Gold_Label_test.tsv
 1. Run model selection (bash_RNN.sh, bash_CNN.sh, bash_HAN.sh) 
 
 # TASK 2 - Extraction of TRI interactions at sentence level.
+
+## Contextualization (?)
