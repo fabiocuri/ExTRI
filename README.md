@@ -15,7 +15,7 @@ Author: Fabio Curi Paixao
 
 3. Retrieve original abstracts in PubTator format (retrieve_abstracts.sh)
 
-4. Annotate entities with the EXTRACT tool and export final dataset (EXTRACT.py)
+4. Annotate entities with the EXTRACT tool (https://extract.jensenlab.org/) and export final dataset (EXTRACT.py)
 
 5. Build features (BuildFeaturesEXTRACT.py)
 
