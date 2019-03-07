@@ -4,7 +4,9 @@ Author: Fabio Curi Paixao
 
 ## Training and Validation data : 
 abstracts.all.labeled.csv
+
 Gold_Label_train.tsv
+
 Gold_Label_test.tsv
 
 ## Pipeline
