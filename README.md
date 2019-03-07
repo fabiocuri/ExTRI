@@ -1,6 +1,6 @@
 Author: Fabio Curi Paixao
 
-# TASK 1 - Detection of TRI interactions in abstracts.
+# TASK 1 - Detection of TRI interactions in abstracts
 
 ## Data : 
 data/abstracts.all.labeled.csv
@@ -27,9 +27,9 @@ data/hackaton_2.tsv
 
 8. Train GloVe embeddings (glove.sh)
 
-9. Run model selection (bash_RNN.sh, bash_CNN.sh, bash_HAN.sh) 
+9. Run models (bash_RNN.sh, bash_CNN.sh, bash_HAN.sh) and perform model selection
 
-# TASK 2 - Extraction of TRI interactions at sentence level.
+# TASK 2 - Extraction of TRI interactions at sentence level
 
 ## Contextualization (?)
 
