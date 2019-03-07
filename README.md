@@ -2,7 +2,10 @@ Author: Fabio Curi Paixao
 
 # TASK 1 - Detection of TRI interactions in abstracts.
 
-## Training and Validation data : abstracts.all.labeled.csv, Gold_Label_train.tsv, Gold_Label_test.tsv
+## Training and Validation data : 
+abstracts.all.labeled.csv
+Gold_Label_train.tsv
+Gold_Label_test.tsv
 
 ## Pipeline
 
