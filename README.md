@@ -1,11 +1,10 @@
-# ExTRI
-
-Detection of TRI interactions through Deep Learning.
-
 Author: Fabio Curi Paixao
 
-## Pipeline to train Deep Learning classifiers to detect TRI interactions 
+# TASK 1 - Detection of TRI interactions in abstracts.
 
+## Data : 'abstracts.all.labeled.csv'
+
+## Pipeline
 
 ### Export dataset with features 
 
