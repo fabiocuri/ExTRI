@@ -25,7 +25,6 @@ from imblearn.over_sampling import ADASYN
 from keras.utils.vis_utils import plot_model
 import itertools
 import argparse
-from PreprocessExportTrainingData import categorize_features
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
@@ -158,14 +157,6 @@ def run_RNN(X, labels, path_to_glove, MNW, LSTMD, ATT, OPT, model_name):
 
     data = pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
 
-    # Shuffle data
-
-    indices = np.arange(data.shape[0])
-    np.random.shuffle(indices)
-    data = data[indices]
-    labels = labels[indices]
-    nb_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
-
     # Run Model with Cross-validation
 
     n_folds = 10
@@ -174,6 +165,14 @@ def run_RNN(X, labels, path_to_glove, MNW, LSTMD, ATT, OPT, model_name):
     for n_ in range(n_folds):
 
         print('Running fold ' + str(n_))
+
+        # Shuffle data
+
+        indices = np.arange(data.shape[0])
+        np.random.shuffle(indices)
+        data = data[indices]
+        labels = labels[indices]
+        nb_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
 
         # Split data
 
