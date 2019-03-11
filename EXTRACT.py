@@ -12,8 +12,9 @@ from selenium.webdriver.support.ui import WebDriverWait as wait
 from ExportPMIDs import read_as_list, write_list
 import pyperclip
 from random import shuffle
+import argparse
 
-def annotate_with_EXTRACT(abstracts_PMIDs):
+def annotate_with_EXTRACT(abstracts_PMIDs, folder_input, folder_output):
     
     ''' Scrape all entities extracted by EXTRACT '''
 
@@ -24,9 +25,9 @@ def annotate_with_EXTRACT(abstracts_PMIDs):
 
         PMID = PMID.split('.')[0]
 
-        if not os.path.isfile(cwd + '/annotated_abstracts/' + PMID + '_annotated.txt'): # If PMID has not been yet annotated...
+        if not os.path.isfile(cwd + folder_output + '/' + PMID + '_annotated.txt'): # If PMID has not been yet annotated...
 
-            journal = read_as_list(cwd + '/abstracts/' + PMID + '.txt', encoding=encoding)
+            journal = read_as_list(cwd + folder_input + '/' + PMID + '.txt', encoding=encoding)
 
             if journal[1].split('|')[2] != '-No abstract-': # If PMID abstract exists...
 
@@ -47,7 +48,7 @@ def annotate_with_EXTRACT(abstracts_PMIDs):
 
                     driver.find_element_by_id("extract_copy_to_clipboard").click()
                     text = pyperclip.paste()
-                    write_list(text, cwd + '/annotated_abstracts/' + PMID + '_annotated.txt', iterate=False, encoding=encoding)
+                    write_list(text, cwd + folder_output + '/' + PMID + '_annotated.txt', iterate=False, encoding=encoding)
                     print(str(PMID) + ' : Entities annotated!')
 
                 except:
@@ -59,6 +60,16 @@ def annotate_with_EXTRACT(abstracts_PMIDs):
 if '__main__' == __name__:
     
     cwd = os.getcwd()
-    abstracts_PMIDs = [f for f in listdir(cwd + '/abstracts') if isfile(join(cwd + '/abstracts', f))]
+
+    parser = argparse.ArgumentParser(description='Hyper-parameters of the model.')
+    parser.add_argument('--input', type=str, help="""Folder with abstracts to be annotated.""")
+    parser.add_argument('--output', type=str, help="""Folder with annotated abstracts.""")
+
+    args = parser.parse_args()
+
+    folder_input = '/' + args.input
+    folder_output = '/' + args.output
+
+    abstracts_PMIDs = [f for f in listdir(cwd + folder_input) if isfile(join(cwd + folder_input, f))]
     shuffle(abstracts_PMIDs)
-    annotate_with_EXTRACT(abstracts_PMIDs)
+    annotate_with_EXTRACT(abstracts_PMIDs, folder_input, folder_output)
