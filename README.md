@@ -11,7 +11,7 @@ data/hackaton_2.tsv
 
 ## Pipeline
 
-1. Obtain list of annotated PMIDs (ExportPMIDs.py)
+1. Obtain list of PMIDs (ExportPMIDs.py)
 
 2. Download GNormPlus (Perl version) and install it correctly: https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 
