@@ -252,8 +252,8 @@ def run_RNN(X, labels, path_to_glove, MNW, LSTMD, ATT, OPT, model_name):
         l_f1.append(f1_score(y_true=y_val, y_pred=y_pred, average='macro'))
         l_val_accuracy.append(history.history['val_acc'][-1])
 
-    l_results = model_name + ' ' + str(np.mean(l_precision)) + ' ' + str(np.mean(l_recall)) + ' ' + str(np.mean(l_f1)) + ' ' + str(np.mean(l_val_accuracy))
-
+    l_results = model_name + '\t' + str(np.mean(l_precision)) + '\t' + str(np.mean(l_recall)) + '\t' + str(np.mean(l_f1)) + '\t' + str(np.mean(l_val_accuracy))
+    
     # Append results
 
     f = open(cwd + '/results_RNN.txt', "a")
