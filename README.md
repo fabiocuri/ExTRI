@@ -1,35 +1,65 @@
 Author: Fabio Curi Paixao
 
-# TASK 1 - Detection of TRI interactions in abstracts
-
 ## Data : 
+
 data/abstracts.all.labeled.csv
 
 data/hackaton_1.tsv
 
 data/hackaton_2.tsv
 
-## Pipeline
+## Installations:
 
-1. Obtain list of PMIDs (ExportPMIDs.py)
+1. pip3 install -r requirements
 
 2. Download GNormPlus (Perl version) and install it correctly: https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 
-3. Retrieve original abstracts in PubTator format (retrieve_abstracts.sh)
+3. Download GloVe and install it correctly: https://nlp.stanford.edu/projects/glove/
 
-4. Annotate entities with the EXTRACT tool (https://extract.jensenlab.org/) and export final dataset (EXTRACT.py)
+## Extract entities through EXTRACTOR.
 
-5. Build features, preprocess data, perform feature selection, concatenate features to text and export training sets (BuildTrainingData.py)
+1. Obtain list of PMIDs 
 
-6. Train and apply Byte-Pair Encoding (BPE.sh)
+   python3 ExportPMIDs.py
 
-7. Download GloVe and install it correctly: https://nlp.stanford.edu/projects/glove/
+* Note that if you already have a list of PMIDs, you can skip this step.
 
-8. Train GloVe embeddings (glove.sh)
+2. Retrieve articles in PubTator format 
 
-9. Run models (bash_RNN.sh, bash_CNN.sh, bash_HAN.sh) and perform model selection
+   bash retrieve_articles.sh
+
+3. Annotate articles with the EXTRACT tool (https://extract.jensenlab.org/) and export *.ann and *.txt files
+
+   python3 EXTRACT.py --input articles_pubtator --output articles_entities
+
+   python3 EXTRACT.py --input articles_pubtator_test --output articles_entities_test
+
+# TASK 1 - Detection of TRI interactions in abstracts
+
+1. Build features, preprocess data, perform feature selection, concatenate features to text and export training sets 
+
+   python3 ExportData.py --type train --data articles_pubtator --entities articles_entities
+
+   python3 ExportData.py --type test --data articles_pubtator_test --entities articles_entities_test
+
+2. Perform Byte-Pair Encoding of training set
+
+   bash BPE.sh
+
+3. Traing GloVe embeddings of training set
+
+   bash glove.sh
+
+## Run Models and perform model selection
+
+4. Run RNN, CNN and HAN
+
+   bash_RNN.sh
+
+   bash_CNN.sh
+
+   bash_HAN.sh
 
 # TASK 2 - Extraction of TRI interactions at sentence level
 
-## Contextualization (?)
-
+By now, the entities have already been exported in BRAT format as *.ann files.
