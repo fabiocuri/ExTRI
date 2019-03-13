@@ -1,18 +1,24 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+''' Author: Fabio Curi Paixao '''
+
 import os
 import pandas as pd
 
 def read_as_list(l, encoding):
+
     ''' Read file as list '''
+
     l_ = []
     with open(l, "rt", encoding=encoding) as f:
         l_ = f.read().splitlines()
     return l_
 
 def write_list(l, l_name, iterate, encoding):
+
     ''' Export list '''
+
     if encoding is not None:
         with open(l_name, 'w', encoding=encoding) as f:
             if iterate:
