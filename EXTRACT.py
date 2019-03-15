@@ -30,7 +30,7 @@ def find_substring(a_str, sub):
 
 def annotate_with_EXTRACT(abstracts_PMIDs, folder_input, folder_output):
     
-    ''' For each abstract in PubTator format, extract entities with EXTRACT and export *.ann file in BRAT format '''
+    ''' For each abstract in PubTator format, extract entities with EXTRACT and export *.ann files in BRAT format '''
 
     driver = webdriver.Chrome()
     encoding = "latin-1"
@@ -107,7 +107,7 @@ def annotate_with_EXTRACT(abstracts_PMIDs, folder_input, folder_output):
                     t__ = sorted(t__, key=lambda tup: tup[1])
 
                     for i, j in enumerate(t__):
-                        export.append('T%s' %i + '\t' + str(j[0]) + '\t' + str(j[1]) + '\t' + str(j[2]) + '\t' + j[3])
+                        export.append('T%s' %i + '\t' + str(j[0].replace(' ','').upper()) + '\s' + str(j[1]) + '\s' + str(j[2]) + '\t' + j[3])
                         #export.append('#%s' %i + '\t' + str(j[0]) + '\t' + str(j[1]) + '\t' + str(j[2]) + '\t' + j[3])
 
                     write_list(export, cwd + folder_output + '/' + PMID + '.ann', iterate=True, encoding=encoding)
