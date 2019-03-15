@@ -3,13 +3,12 @@
 
 import os
 os.environ['KERAS_BACKEND']='tensorflow'
-import spacy
 import argparse
 import numpy as np
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
-from imblearn.over_sampling import ADASYN
+from imblearn.over_sampling import ADASYN, SMOTE, RandomOverSampler
 from keras.models import Model
 from keras.optimizers import Adam, RMSprop
 from keras.utils.vis_utils import plot_model
@@ -21,7 +20,7 @@ from sklearn.metrics import f1_score, precision_score, recall_score
 from keras.layers import Dense, Input, Flatten, Conv1D, MaxPooling1D, Embedding, Dropout
 from ExportPMIDs import read_as_list
 
-def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, model_name):
+def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, experimental_mode, oversampling, model_name):
 
     ''' Convolutional Neural Networks '''
 
@@ -81,14 +80,28 @@ def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, model_name):
 
         # Oversampling of minority label in training set
 
-        ada = ADASYN(random_state=42, sampling_strategy='minority')
-        X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
-        y_train_resampled = to_categorical(np.asarray(y_train_resampled))
+        if oversampling == "ADASYN":
+
+            ada = ADASYN(random_state=42, sampling_strategy='minority')
+            X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
+            y_train_resampled = to_categorical(np.asarray(y_train_resampled))
+
+        if oversampling == "SMOTE":
+
+            ada = SMOTE(random_state=42, sampling_strategy='minority')
+            X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
+            y_train_resampled = to_categorical(np.asarray(y_train_resampled))
+
+        if oversampling == "ROS":
+
+            ada = RandomOverSampler(random_state=42, sampling_strategy='minority')
+            X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
+            y_train_resampled = to_categorical(np.asarray(y_train_resampled))
 
         # Build GloVe dictionaries
 
         embeddings_index = {}
-        f = open(cwd + '/glove/' + path_to_glove, encoding='utf8')
+        f = open(path_to_glove, encoding='utf8')
         for line in f:
             values = line.split()
             word = values[0]
@@ -151,10 +164,13 @@ def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, model_name):
         checkpoint = ModelCheckpoint(model_filepath, monitor='val_loss', verbose = 0, save_best_only=True, mode='min')
         callbacks_list = [early_stopping, checkpoint]
 
-        if experiment_mode:
+        if experimental_mode == "yes":
             callbacks_list = [early_stopping]
+        else:
+            checkpoint = ModelCheckpoint(model_filepath, monitor='val_loss', verbose = 0, save_best_only=True, mode='min')
+            callbacks_list = [early_stopping, checkpoint]
 
-        history = model.fit(X_train_resampled, y_train_resampled, validation_data=(x_val, y_val), epochs=20, callbacks=callbacks_list, verbose = 0)
+        history = model.fit(X_train_resampled, y_train_resampled, validation_data=(x_val, y_val), epochs=30, callbacks=callbacks_list, verbose = 0)
 
         # Predictions
 
@@ -172,7 +188,7 @@ def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, model_name):
         l_val_accuracy.append(history.history['val_acc'][-1])
 
     l_results = model_name + '\t' + str(np.mean(l_precision)) + '\t' + str(np.mean(l_recall)) + '\t' + str(np.mean(l_f1)) + '\t' + str(np.mean(l_val_accuracy))
-    
+
     # Append results
 
     f = open(cwd + '/results_CNN.txt', "a")
@@ -181,13 +197,9 @@ def run_CNN(X, labels, path_to_glove, MNW, CONVD, OPT, model_name):
 
 if '__main__' == __name__:
 
-    experiment_mode = True
-
     encoding = 'latin-1'
 
     cwd = os.getcwd()
-    nlp = spacy.load('en_core_web_sm')
-    plt.switch_backend('agg')
 
     parser = argparse.ArgumentParser(description='Hyper-parameters of the model.')
     parser.add_argument('--data', type=str, help="""Preprocessed .txt file with text.""")
@@ -195,6 +207,8 @@ if '__main__' == __name__:
     parser.add_argument('--max_num_words', type=int, help="""Maximum number of words.""")
     parser.add_argument('--dim_CONV', type=int, help="""Number of filters.""")
     parser.add_argument('--optimizer', type=str, default=None, help="""Optimizer of the CNN.""")
+    parser.add_argument('--oversampling', type=str, default=None, help="""Oversampling algorithm.""")
+    parser.add_argument('--model_selection', type=str, default=None, help="""Whether model selection is activated.""")
 
     args = parser.parse_args()
 
@@ -203,12 +217,14 @@ if '__main__' == __name__:
     MNW = args.max_num_words
     CONVD = args.dim_CONV
     OPT = args.optimizer
+    experimental_mode = args.model_selection
+    oversampling = args.oversampling
 
     MSL = 100 # Maximum sequence lengths.
     VALIDATION_SPLIT = 0.2 # Validation %
 
     train = read_as_list(cwd + '/simulations/' + X + '.txt', encoding=encoding)
     labels = read_as_list(cwd + '/simulations/' + y + '.txt', encoding=encoding)
-    path_to_glove = 'vectors_' + X + '.txt'
+    path_to_glove = cwd + '/glove/vectors_' + X + '.txt'
 
-    run_CNN(train, labels, path_to_glove, MNW, CONVD, OPT, "CNN_%s_%s_%s_%s" % (str(X), str(MNW), str(CONVD), str(OPT)))
+    run_CNN(train, labels, path_to_glove, MNW, CONVD, OPT, experimental_mode, oversampling, "CNN_%s_%s_%s_%s_%s" % (str(X), str(MNW), str(CONVD), str(OPT), str(oversampling)))
