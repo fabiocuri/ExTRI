@@ -30,17 +30,17 @@ data/hackaton_2.tsv
 
 3. Annotate articles with the EXTRACT tool (https://extract.jensenlab.org/) and export *.ann and *.txt files
 
-   python3 EXTRACT.py --input articles_pubtator --output articles_entities
+   python3 EXTRACT.py --input articles_pubtator --output articles_entities_EXTRACT
 
-   python3 EXTRACT.py --input articles_pubtator_test --output articles_entities_test
+   python3 EXTRACT.py --input articles_pubtator_test --output articles_entities_EXTRACT_test
 
 # TASK 1 - Detection of TRI interactions in abstracts
 
 1. Build features, preprocess data, perform feature selection, concatenate features to text and export training sets 
 
-   python3 ExportData.py --type train --data articles_pubtator --entities articles_entities
+   python3 ExportData.py --type train --data articles_pubtator --entities articles_entities_EXTRACT
 
-   python3 ExportData.py --type test --data articles_pubtator_test --entities articles_entities_test
+   python3 ExportData.py --type test --data articles_pubtator_test --entities articles_entities_EXTRACT_test
 
 2. Perform Byte-Pair Encoding of training set
 
@@ -62,4 +62,12 @@ data/hackaton_2.tsv
 
 # TASK 2 - Extraction of TRI interactions at sentence level
 
-By now, the entities have already been exported in BRAT format as *.ann files.
+## NER
+
+### EXTRACT
+
+### GNormPlus
+
+### NERSuite
+
+### Dictionaries
