@@ -32,7 +32,7 @@ Note that if you already have a list of PMIDs, you can name your files 'PMID_tra
 
 3. Export sentences in PubTator format
 
-   python3 abstracts2sentences.py --abstracts {train_abstracts, test_abstracts}
+   python3 abstracts2sentences.py --input {train_abstracts, test_abstracts}
 
 # NER
 
