@@ -1,6 +1,6 @@
 Author: Fabio Curi Paixao
 
-Encoding: utf-8
+Encoding: latin-1
 
 ## Data: 
 
