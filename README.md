@@ -1,6 +1,6 @@
 Author: Fabio Curi Paixao
 
-Encoding: latin-1
+Encoding: utf-8
 
 ## Data: 
 
@@ -48,13 +48,9 @@ Note that if you already have a list of PMIDs, you can name your files 'PMID_tra
 
    * Build DbTF dictionary through python3 BuildTFdic.py
 
-## Merge GNormPlus and EXTRACT
+## Merge GNormPlus and EXTRACT. Annotate DbTFs and export *.ann and *.txt for BRAT.
 
    * python3 MergeNER.py --input {train_abstracts, train_sentences, test_abstracts, test_sentences}
-
-## Tag DbTF
-
-   * python3 AnnotateDbTF.py --input {train_abstracts, train_sentences, test_abstracts, test_sentences}
 
 # TASK 1 - Triage of abstracts with TRI
 
