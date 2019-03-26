@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+''' Author: Fabio Curi Paixao '''
+
 import os
 import argparse
 from ExportPMIDs import read_as_list, write_list
