@@ -1,6 +1,8 @@
 Author: Fabio Curi Paixao
 
-## Data : 
+Encoding: utf-8
+
+## Data: 
 
 data/abstracts.all.labeled.csv
 
@@ -12,47 +14,65 @@ data/hackaton_2.tsv
 
 1. pip3 install -r requirements
 
-2. Download GNormPlus (Perl version) and install it correctly: https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
+2. Download GNormPlus (both Perl and Java's version) and install them correctly: https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 
 3. Download GloVe and install it correctly: https://nlp.stanford.edu/projects/glove/
 
-## Extract entities through EXTRACTOR.
+# Get articles and sentences
 
 1. Obtain list of PMIDs 
 
-   python3 ExportPMIDs.py
+   * python3 ExportPMIDs.py
 
-* Note that if you already have a list of PMIDs, you can skip this step.
+Note that if you already have a list of PMIDs, you can name your files 'PMID_train.txt' and 'PMID_test.txt' and move to the next step.
 
 2. Retrieve articles in PubTator format 
 
-   bash retrieve_articles.sh
+   * Copy retrieve_articles_triage.sh into the GNormPlusPerl folder and do bash retrieve_articles_triage.sh
 
-3. Annotate articles with the EXTRACT tool (https://extract.jensenlab.org/) and export *.ann and *.txt files
+3. Export sentences in PubTator format
 
-   python3 EXTRACT.py --input articles_pubtator --output articles_entities_EXTRACT
+   python3 abstracts2sentences.py --abstracts {train_abstracts, test_abstracts}
 
-   python3 EXTRACT.py --input articles_pubtator_test --output articles_entities_EXTRACT_test
+# NER
 
-# TASK 1 - Detection of TRI interactions in abstracts
+## GNormPlus
 
-1. Build features, preprocess data, perform feature selection, concatenate features to text and export training sets 
+   * Copy GNormPlus.sh into the GNormPlusJava folder and do ´bash GNormPlus.sh´
 
-   python3 ExportData.py --type train --data articles_pubtator --entities articles_entities_EXTRACT
+## EXTRACT (https://extract.jensenlab.org/)
 
-   python3 ExportData.py --type test --data articles_pubtator_test --entities articles_entities_EXTRACT_test
+   * python3 EXTRACT.py --input {train_abstracts, train_sentences, test_abstracts, test_sentences}
 
-2. Perform Byte-Pair Encoding of training set
+## Build dictionaries of DbTF
+
+   * Build DbTF dictionary through python3 BuildTFdic.py
+
+## Merge GNormPlus and EXTRACT
+
+   * python3 MergeNER.py --input {train_abstracts, train_sentences, test_abstracts, test_sentences}
+
+## Tag DbTF
+
+   * python3 AnnotateDbTF.py --input {train_abstracts, train_sentences, test_abstracts, test_sentences}
+
+# TASK 1 - Triage of abstracts with TRI
+
+4. Merge entities, preprocess data, perform feature selection, concatenate features to text and export training sets 
+
+   python3 ExportData.py --type train --data pubtator_train --EXTRACT_entities EXTRACT_train --GNORMPLUS_entities GNORMPLUS_train
+
+   python3 ExportData.py --type test --data pubtator_test --EXTRACT_entities EXTRACT_test --GNORMPLUS_entities GNORMPLUS_test
+
+5. Perform Byte-Pair Encoding of training set
 
    bash BPE.sh
 
-3. Traing GloVe embeddings of training set
+6. Traing GloVe embeddings of training set
 
    bash glove.sh
 
-## Run Models and perform model selection
-
-4. Run RNN, CNN and HAN
+7. Run RNN, CNN and HAN
 
    bash_RNN.sh
 
@@ -62,12 +82,3 @@ data/hackaton_2.tsv
 
 # TASK 2 - Extraction of TRI interactions at sentence level
 
-## NER
-
-### EXTRACT
-
-### GNormPlus
-
-### NERSuite
-
-### Dictionaries
