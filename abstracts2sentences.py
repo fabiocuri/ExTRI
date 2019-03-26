@@ -15,11 +15,11 @@ if '__main__' == __name__:
     encoding = 'latin-1'
 
     parser = argparse.ArgumentParser(description='Convert abstracts into sentences.')
-    parser.add_argument('--abstracts', type=str, help="""Train or test data.""")
+    parser.add_argument('--input', type=str, help="""Train or test data.""")
     args = parser.parse_args()
 
-    abstracts_folder = cwd + '/pubtator/' + args.abstracts
-    output_folder = cwd + '/pubtator/' + args.abstracts.split('_')[0] + '_sentences'
+    abstracts_folder = cwd + '/pubtator/' + args.input
+    output_folder = cwd + '/pubtator/' + args.input.split('_')[0] + '_sentences'
     
     abstracts_PMIDs = [f for f in os.listdir(abstracts_folder) if os.path.isfile(os.path.join(abstracts_folder, f))]
 
