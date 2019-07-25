@@ -1,6 +1,7 @@
 #!/bin/bash
 INPUT=./test/pubtator
 mkdir -p ./test/GNormPlus
+mkdir -p ./test/text
 OUTPUT=./test/GNormPlus
 SETUP=setup.txt
 
