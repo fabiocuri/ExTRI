@@ -27,7 +27,7 @@ fcuri91@gmail.com
 
 ## Build train and test ML data
 
-   [if NER has been changed, run bash relabel_train.sh]
+   If NER has been changed, run ´bash relabel_train.sh´
 
    * python3 build_data.py --folder train
    * python3 build_data.py --folder test/merged
