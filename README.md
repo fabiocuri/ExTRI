@@ -14,7 +14,11 @@ fcuri91@gmail.com
 
 ## Training Data: 
 
-   * RE/train
+   * ./train
+   
+## List of test PMIDs:
+
+   * test.txt
 
 ## Retrieve and do NER on test data:
 
