@@ -24,17 +24,17 @@ def merge(f):
         rl, write_out, already, final_merge = [], [], [], []
 
         tx = read_as_list(f + '/text/' + text, encoding=encoding)
-        ann = text.split('.')[0] + '.txt.out.minfner'
+        ann = text + '.out.minfner'
         ntnu_boolean, gn_boolean = False, False
 
         if ann in l_ntnu:
             ntnu = read_as_list(f + '/NTNU/' + ann, encoding=encoding)
-            ntnu = [' '.join(x.split('\t')[1:]) for x in ntnu if x[0] == 'T'] 
             ntnu = ['N_' + s  for s in ntnu]
             ntnu_boolean = True
+
+        ann = text.split('.')[0] + ':0.txt.out.minfner'
         if ann in l_gnormplus:
             gn = read_as_list(f + '/GNormPlus/' + ann, encoding=encoding)
-            gn = [' '.join(x.split('\t')[1:]) for x in gn if x[0] == 'T'] 
             gn = ['G_' + s  for s in gn]
             gn_boolean = True
 
@@ -49,29 +49,38 @@ def merge(f):
             entities = False
 
         # Keep all N_DBTF
-        final_merge += [x for x in entities if x.split(' ')[0] == 'N_DBTF']
-        already = [(x.split(' ')[1], x.split(' ')[2]) for x in final_merge]
+        final_merge += [x for x in entities if x[0] == 'N' and x.split('\t')[1].split(' ')[0]=='DBTF']
+        already = [(x.split('\t')[1].split(' ')[1], x.split('\t')[1].split(' ')[2]) for x in final_merge if x[2] == 'T']
         # Keep all G_NONDBTF 
-        final_merge += [x for x in entities if x.split(' ')[0] == 'G_NONDBTF' and (x.split(' ')[1], x.split(' ')[2]) not in already]
-        already = [(x.split(' ')[1], x.split(' ')[2]) for x in final_merge]
+        final_merge += [x for x in entities if x[0] == 'G' and x.split('\t')[1].split(' ')[0]=='NONDBTF' and (x.split('\t')[1].split(' ')[1], x.split('\t')[1].split(' ')[2]) not in already]
+        already = [(x.split('\t')[1].split(' ')[1], x.split('\t')[1].split(' ')[2]) for x in final_merge if x[2] == 'T']
         # Keep all N_NONDBTF
-        final_merge += [x for x in entities if x.split(' ')[0] == 'N_NONDBTF' and (x.split(' ')[1], x.split(' ')[2]) not in already]
-        already = [(x.split(' ')[1], x.split(' ')[2]) for x in final_merge]
+        final_merge += [x for x in entities if x[0] == 'N' and x.split('\t')[1].split(' ')[0]=='NONDBTF' and (x.split('\t')[1].split(' ')[1], x.split('\t')[1].split(' ')[2]) not in already]
+        already = [(x.split('\t')[1].split(' ')[1], x.split('\t')[1].split(' ')[2]) for x in final_merge if x[2] == 'T']
         # Keep all G_DBTF
-        final_merge += [x for x in entities if x.split(' ')[0] == 'G_DBTF' and (x.split(' ')[1], x.split(' ')[2]) not in already]
+        final_merge += [x for x in entities if x[0] == 'G' and x.split('\t')[1].split(' ')[0]=='DBTF' and (x.split('\t')[1].split(' ')[1], x.split('\t')[1].split(' ')[2]) not in already]
+        already = [(x.split('\t')[1].split(' ')[1], x.split('\t')[1].split(' ')[2]) for x in final_merge if x[2] == 'T']
+
+        elements = [x.split('\t')[0][3:] for x in final_merge]
+        final_merge += [x for x in entities if x[0:3] == 'N_#' and x.split('\t')[0][3:] in elements]
 
         entities = [x[2:] for x in final_merge]
 
+        ann_out = ann = text.split('.')[0] + '.ann'
+
         if entities:
-            i=0
             for e in entities:
-                e_ = e.split(' ')
-                p, start, end, word = e_[0], e_[1], e_[2], ' '.join(e_[3:])
-                write_out.append('T' + str(i) + '\t' + p + ' ' + str(start) + ' ' + str(end) + '\t' + word)
-                i += 1
+                if e[0] == 'T':
+                    e_ = e.split('\t')
+                    entity, tag, start, end, word = e_[0], e_[1].split(' ')[0], e_[1].split(' ')[1], e_[1].split(' ')[2], e_[2]
+                    write_out.append(str(entity) + '\t' + tag + ' ' + str(start) + ' ' + str(end) + '\t' + word)
+                if e[0] == '#':
+                    e_ = e.split('\t')
+                    entity, ID = e_[0], e_[2]
+                    write_out.append(str(entity) + '\t' + 'AnnotatorNotes T' + str(entity[1:]) + '\t' + str(ID))
 
         if write_out:
-            write_list(write_out, f + '/merged/' + ann, iterate=True, encoding=encoding)
+            write_list(write_out, f + '/merged/' + ann_out, iterate=True, encoding=encoding)
             write_list(tx, f + '/merged/' + text, iterate=True, encoding=encoding)
 
 if '__main__' == __name__:
