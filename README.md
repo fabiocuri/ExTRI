@@ -27,7 +27,6 @@ fcuri91@gmail.com
    * python3 export_abstracts.py --folder test
    * ´bash minfner_test_gnormplus.sh´
    * ´bash minfner_test.sh´
-   * mv ./test/text/*.minfner ./test/NTNU
    * python3 merge_ner.py --folder test
    * python3 filter_words.py
 
