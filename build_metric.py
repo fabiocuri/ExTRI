@@ -6,6 +6,10 @@ Author: Fabio Curi Paixao
 fcuri91@gmail.com
  '''
 
+import pandas as pd
+from export_abstracts import read_as_list, write_list
+from collections import defaultdict, Counter
+
 def normalize(dictionary, dic):
 
     normalized = defaultdict(list)
