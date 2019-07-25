@@ -76,7 +76,7 @@ def merge(f):
                     write_out.append(str(entity) + '\t' + tag + ' ' + str(start) + ' ' + str(end) + '\t' + word)
                 if e[0] == '#':
                     e_ = e.split('\t')
-                    entity, ID = e_[0], e_[2]
+                    entity, ID = e_[0], ' '.join(e_[1].split(' ')[1:]) + ' ' + e_[2]
                     write_out.append(str(entity) + '\t' + 'AnnotatorNotes T' + str(entity[1:]) + '\t' + str(ID))
 
         if write_out:
