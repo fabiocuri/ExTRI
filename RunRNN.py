@@ -8,6 +8,7 @@ fcuri91@gmail.com
 
 import os
 import keras
+import nltk
 import argparse
 import itertools
 import numpy as np
@@ -31,34 +32,25 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from imblearn.over_sampling import ADASYN, SMOTE, RandomOverSampler
 from keras.layers import Dense, Input, Flatten, Embedding, Dropout, LSTM, Bidirectional
 
-def plot_confusion_matrix(cm, classes,
-                          normalize=False,
-                          title='Confusion matrix',
-                          cmap=plt.cm.Blues):
-    """
-    This function prints and plots the confusion matrix.
-    Normalization can be applied by setting `normalize=True`.
-    """
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+def preprocess(l):
 
-    plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=45)
-    plt.yticks(tick_marks, classes)
+    tokens = nltk.word_tokenize(l.lower())
 
-    fmt = '.2f' if normalize else 'd'
-    thresh = cm.max() / 2.
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, format(cm[i, j], fmt),
-                 horizontalalignment="center",
-                 color="white" if cm[i, j] > thresh else "black")
+    for i, t in enumerate(tokens):
+        if 'gene1' in t:
+            g1 = i
+        if 'gene2' in t:
+            g2 = i
 
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
-    plt.tight_layout()
+    WINDOW_SIZE = 10
+
+    # make sure that we don't overflow but using the min and max methods
+    FIRST_INDEX = max(g1 - WINDOW_SIZE , 0)
+    SECOND_INDEX = min(g2 + WINDOW_SIZE, len(tokens))
+   
+    trimmed_tokens = tokens[FIRST_INDEX : SECOND_INDEX]
+
+    return l
 
 class Attention(Layer):
 
@@ -339,6 +331,7 @@ if '__main__' == __name__:
 
     df = pd.read_csv('./train_data.csv')
     train = list(df['all_sentences'])
+    train = [preprocess(x) for x in train]
     labels = list(df['tags'])
 
     MNW = args.max_num_words
@@ -354,5 +347,6 @@ if '__main__' == __name__:
 
     df = pd.read_csv('./test/merged_data.csv')
     test = list(df['all_sentences'])
+    test = [preprocess(x) for x in test]
 
     run_RNN(train, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, "RNN_%s_%s_%s_%s_%s" % (str(MNW), str(LSTMD), str(ATT), str(OPT), str(oversampling)))
