@@ -4,7 +4,7 @@ fcuri91@gmail.com
 
 # Installations:
 
-1. pip3 install -r requirements.txt (UPDATE!)
+1. pip3 install -r requirements.txt
 
 2. Download GNormPlus (both Perl and Java's version) and install them correctly: https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 
