@@ -13,3 +13,5 @@ do
 sort -u -k3,4 $x | sed 's/#/\n#/g' | sed 's/Notes-/Notes /g' | awk '{if($2!="AnnotatorNotes") print $1"\t"$2" "$3" "$4"\t"$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12; else print $1"\t"$2" "$3"\t"$4" "$5" "$6" "$7" "$8}' > $x.minfner
 done
 echo "Finished! Have a nice day!"
+mkdir -p ./test/NTNU
+mv ./test/text/*.minfner ./test/NTNU
