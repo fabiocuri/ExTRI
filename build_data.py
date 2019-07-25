@@ -266,7 +266,7 @@ if '__main__' == __name__:
     encoding = 'latin-1'
 
     parser = argparse.ArgumentParser(description='Options for relation extraction.')
-    parser.add_argument('--folder', type=str, help="""Folder with *.txt.txt2 and *.txt.out.official.out.txt2 files.""")
+    parser.add_argument('--folder', type=str, help="""Folder with *.txt and *.ann files.""")
     args = parser.parse_args()
 
     l_texts = [f for f in listdir(cwd + '/' + args.folder) if f.endswith('.txt')]
