@@ -34,7 +34,7 @@ fcuri91@gmail.com
    * python3 build_data.py --folder train
    * python3 build_data.py --folder test/merged
 
-## Run RE and predict test
+## Run RNN
 
    * python3 RunRNN.py --max_num_words 500 --dim_LSTM 100 --attention Att --optimizer adam --oversampling ROS
 
