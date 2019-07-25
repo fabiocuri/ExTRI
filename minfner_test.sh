@@ -14,4 +14,5 @@ sort -u -k3,4 $x | sed 's/#/\n#/g' | sed 's/Notes-/Notes /g' | awk '{if($2!="Ann
 done
 echo "Finished! Have a nice day!"
 mkdir -p ./test/NTNU
+mkdir -p ./test/merged
 mv ./test/text/*.minfner ./test/NTNU
