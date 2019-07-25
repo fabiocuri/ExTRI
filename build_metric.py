@@ -10,7 +10,7 @@ import pandas as pd
 from export_abstracts import read_as_list, write_list
 from collections import defaultdict, Counter
 
-def normalize(dictionary, dic):
+def normalize(dictionary, dic, label):
 
     normalized = defaultdict(list)
     missing = []
@@ -42,9 +42,10 @@ def normalize(dictionary, dic):
 
             for tf_ in list(set(tf)):
                 for tg_ in list(set(tg)):
-                    normalized[l].append((tf_, tg_))
-
-    print(list(set(missing)))
+                    if not label:
+                        normalized[l].append((tf_, tg_))
+                    if label:
+                        normalized[l].append((tf_, tg_, e[2]))
         
     return normalized
 
@@ -74,40 +75,23 @@ if '__main__' == __name__:
 
     for l in final:
         l_ = l.split('\t')
-        d_predicted[l_[0]].append((l_[2], l_[3]))
+        d_predicted[l_[0]].append((l_[2], l_[3], l_[1]))
 
     dic = eval(open("../dictionaries/all_dics.txt2", "r").read())
 
-    n_silver = normalize(d_silver, dic)
-    n_predicted = normalize(d_predicted, dic)
+    n_silver = normalize(d_silver, dic, False)
+    n_predicted = normalize(d_predicted, dic, True)
 
-    # Label as TP and FN
-    labels = []
-    for key in n_silver.keys():
-        for a in n_silver[key]:
-            if a in n_predicted[key]:
-                labels.append('TP')
-            else:
-                labels.append('FN')
-
-    c = Counter(labels)
-    FN = c['FN']
+    export = []
 
     # Label as TP and FP
     labels = []
     for key in n_predicted.keys():
         for a in n_predicted[key]:
-            if a in n_silver[key]:
+            if (a[0], a[1]) in n_silver[key]:
+                export.append((key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
                 labels.append('TP')
             else:
                 labels.append('FP')
 
-    c = Counter(labels)
-    FP = c['FP']
-    TP = c['TP']
-    recall = TP/(TP+FN)
-    precision = TP/(TP+FP)
-    f1 = 2*precision*recall/(precision+recall)
-    print('recall ' + str(recall))
-    print('precision ' + str(precision))
-    print('f1-score ' + str(f1))
+    write_list(export, './coocurrences_positive.txt', True, 'latin-1')
