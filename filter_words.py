@@ -14,16 +14,19 @@ if '__main__' == __name__:
     ''' Removes wrong genes '''
 
     to_avoid = read_as_list('to_avoid.txt', encoding='latin-1')
-    l_ann = [f for f in listdir('./test/merged/') if f.endswith('.minfner')]
+    l_ann = [f for f in listdir('./test/merged/') if f.endswith('.ann')]
 
     for a in l_ann:
 
         ann = read_as_list('./test/merged/' + a, encoding='latin-1')
         final = []
         for p in ann:
-           if p.split('\t')[2] not in to_avoid:
-               final.append(p)    
+           if p[0] == 'T':
+               if p.split('\t')[2].replace(' ','') not in to_avoid:
+                   final.append(p)   
 
-        write_list(list(set(final)), './test/merged/' + a + '.ann', True, 'latin-1')
+        entities = [x.split('\t')[0][1:] for x in final] 
+        final+=[x for x in ann if x[0] == '#' and x.split('\t')[0][1:] in entities]
 
+        write_list(list(set(final)), './test/merged/' + a, True, 'latin-1')
 
