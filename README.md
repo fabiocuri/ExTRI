@@ -6,11 +6,11 @@ Date: 26.08.2019
 
 # Installations:
 
-*. pip3 install -r requirements.txt
+* pip3 install -r requirements.txt
 
-*. Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
+* Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 
-*. Install GloVe: https://nlp.stanford.edu/projects/glove/
+* Install GloVe: https://nlp.stanford.edu/projects/glove/
 
 # Extraction of TRI interactions at the sentence level
 
