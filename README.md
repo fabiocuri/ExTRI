@@ -16,8 +16,8 @@ Date: 26.08.2019
 
 ## Retrieve and do NER on test data:
 
-   * ´bash retrieve_test.sh´
-   * ´bash annotate_test.sh´
+   * cd GNormPlusPerl && bash retrieve_test.sh
+   * cd GNormPlusJava && bash annotate_test.sh
    * python3 export_abstracts.py --folder test
    * ´bash minfner_test_gnormplus.sh´
    * ´bash minfner_test.sh´
