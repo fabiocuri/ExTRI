@@ -4,13 +4,12 @@
 ''' 
 Author: Fabio Curi Paixao 
 fcuri91@gmail.com
+Date: 26.08.2019
  '''
 
 import re
 import os
 import time
-import sys
-sys.path.insert(0, '../Triage/')
 from export_abstracts import read_as_list, write_list
 from os import listdir
 from flashtext import KeywordProcessor
@@ -20,7 +19,7 @@ def export_entities(dictionary, list_of_files, label, T, f):
 
     keyword_processor = KeywordProcessor()
 
-    dic = eval(open("../dictionaries/" + dictionary, "r").read())
+    dic = eval(open("./dictionaries/" + dictionary, "r").read())
     now = time.time()
 
     for x in dic.keys():
