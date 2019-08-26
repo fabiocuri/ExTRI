@@ -1,14 +1,14 @@
-Author: Fabio Curi Paixao
-
-Date: 25.07.2019
-
-fcuri91@gmail.com
+Author: Fabio Curi Paixao 
+E-mail: fcuri91@gmail.com
+Date: 26.08.2019
 
 # Installations:
 
 1. pip3 install -r requirements.txt
 
-2. Download GNormPlus (both Perl and Java's version) and install them correctly: https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
+2. Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
+
+3. Install GloVe: https://nlp.stanford.edu/projects/glove/
 
 # Extraction of TRI interactions at the sentence level
 
@@ -32,16 +32,17 @@ fcuri91@gmail.com
 
 ## Build train and test ML data
 
-   If NER has been changed, run ´bash relabel_train.sh´
-
    * python3 build_data.py --folder train
    * python3 build_data.py --folder test/merged
 
 ## Run RNN
 
+   * If you wish to train your own word embeddings, replace 'vectors_train_positive_sentences.txt' by the new vectors.
+   * mkdir models
    * python3 RunRNN.py --max_num_words 500 --dim_LSTM 100 --attention Att --optimizer adam --oversampling ROS
+   * Update the 'tags' column under test/merged_data.csv with predictions
 
 ## Normalize all genes and compare metrics with silver standard
 
-   * bash preprocess_dictionaries.sh
+   * bash preprocess_dictionaries.sh and merge all dictionaries.txt2 into all_dics.txt2
    * python3 build_metric.py
