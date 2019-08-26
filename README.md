@@ -1,14 +1,16 @@
 Author: Fabio Curi Paixao 
+
 E-mail: fcuri91@gmail.com
+
 Date: 26.08.2019
 
 # Installations:
 
-1. pip3 install -r requirements.txt
+*. pip3 install -r requirements.txt
 
-2. Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
+*. Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 
-3. Install GloVe: https://nlp.stanford.edu/projects/glove/
+*. Install GloVe: https://nlp.stanford.edu/projects/glove/
 
 # Extraction of TRI interactions at the sentence level
 
