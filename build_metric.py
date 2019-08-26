@@ -56,8 +56,7 @@ if '__main__' == __name__:
 
     # Export positive sentences
     df = pd.read_csv('./test/merged_data.csv')
-    export, final = [], []
-    values = df.values.tolist()
+    labels = read_as_list('./models/predictions_RNN.txt', encoding='latin-1')
 
     map_idx = {}
     map_idx['0'] = 'activation'
@@ -65,9 +64,13 @@ if '__main__' == __name__:
     map_idx['2'] = 'repression'
     map_idx['3'] = 'undefined'
 
-    for l in values:
-        if str(l[3]) != '1':
-            export.append(l[7] + '\t' + map_idx[str(l[3])].upper() + '\t' + str(l[5]) + '\t' + str(l[6]) + '\t' + str(l[4]))
+    labels = [map_idx[x] for x in labels]
+    export, final = [], []
+    values = df.values.tolist()
+
+    for l, label in zip(values, labels):
+        if label != 'none':
+            export.append(l[7] + '\t' + label.upper() + '\t' + str(l[5]) + '\t' + str(l[6]) + '\t' + str(l[4]))
         
     export = list(set(export))
     final.append('#PMID:Sentence\tTagRNN\tTF\tTG\tSentence')
@@ -93,7 +96,6 @@ if '__main__' == __name__:
     export = []
 
     # Label as TP and FP
-    labels = []
     for key in n_predicted.keys():
         for a in n_predicted[key]:
             if (a[0], a[1]) in n_silver[key]:
@@ -101,4 +103,4 @@ if '__main__' == __name__:
             else:
                 export.append(('FP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
 
-    write_list(export, './coocurrences_positive.txt', True, 'latin-1')
+    #write_list(export, './coocurrences_positive.txt', True, 'latin-1')
