@@ -37,19 +37,24 @@ def preprocess(l):
 
     tokens = nltk.word_tokenize(l.lower())
 
+    g1, g2 = -1, -1
+
     for i, t in enumerate(tokens):
         if 'gene1' in t:
             g1 = i
         if 'gene2' in t:
             g2 = i
 
-    WINDOW_SIZE = 10
+    if g1 > 0 and g2 > 0:
 
-    # make sure that we don't overflow but using the min and max methods
-    FIRST_INDEX = max(g1 - WINDOW_SIZE , 0)
-    SECOND_INDEX = min(g2 + WINDOW_SIZE, len(tokens))
+        WINDOW_SIZE = 10
+
+        # make sure that we don't overflow but using the min and max methods
+        FIRST_INDEX = max(g1 - WINDOW_SIZE , 0)
+        SECOND_INDEX = min(g2 + WINDOW_SIZE, len(tokens))
    
-    trimmed_tokens = tokens[FIRST_INDEX : SECOND_INDEX]
+        l = tokens[FIRST_INDEX : SECOND_INDEX]
+        l = ' '.join(l)
 
     return l
 
