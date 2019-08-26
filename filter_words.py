@@ -4,6 +4,7 @@
 ''' 
 Author: Fabio Curi Paixao 
 fcuri91@gmail.com
+Date: 26.08.2019
  '''
 
 from export_abstracts import read_as_list, write_list
@@ -29,4 +30,3 @@ if '__main__' == __name__:
         final+=[x for x in ann if x[0] == '#' and x.split('\t')[0][1:] in entities]
 
         write_list(list(set(final)), './test/merged/' + a, True, 'latin-1')
-
