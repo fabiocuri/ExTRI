@@ -4,13 +4,16 @@
 ''' 
 Author: Fabio Curi Paixao 
 fcuri91@gmail.com
+Date: 26.08.2019
  '''
 
 import pandas as pd
 from export_abstracts import read_as_list, write_list
 from collections import defaultdict, Counter
 
-def normalize(dictionary, dic, label):
+def normalize(dictionary, label):
+
+    dic = eval(open("./dictionaries/all_dics.txt2", "r").read())
 
     normalized = defaultdict(list)
     missing = []
@@ -55,9 +58,16 @@ if '__main__' == __name__:
     df = pd.read_csv('./test/merged_data.csv')
     export, final = [], []
     values = df.values.tolist()
+
+    map_idx = {}
+    map_idx['0'] = 'activation'
+    map_idx['1'] = 'none'
+    map_idx['2'] = 'repression'
+    map_idx['3'] = 'undefined'
+
     for l in values:
-        if str(l[3]) != 'none':
-            export.append(l[7] + '\t' + str(l[3]).upper() + '\t' + str(l[5]) + '\t' + str(l[6]) + '\t' + str(l[4]))
+        if str(l[3]) != '1':
+            export.append(l[7] + '\t' + map_idx[str(l[3])].upper() + '\t' + str(l[5]) + '\t' + str(l[6]) + '\t' + str(l[4]))
         
     export = list(set(export))
     final.append('#PMID:Sentence\tTagRNN\tTF\tTG\tSentence')
@@ -77,10 +87,8 @@ if '__main__' == __name__:
         l_ = l.split('\t')
         d_predicted[l_[0]].append((l_[2], l_[3], l_[1]))
 
-    dic = eval(open("../dictionaries/all_dics.txt2", "r").read())
-
-    n_silver = normalize(d_silver, dic, False)
-    n_predicted = normalize(d_predicted, dic, True)
+    n_silver = normalize(d_silver, False)
+    n_predicted = normalize(d_predicted, True)
 
     export = []
 
@@ -89,9 +97,8 @@ if '__main__' == __name__:
     for key in n_predicted.keys():
         for a in n_predicted[key]:
             if (a[0], a[1]) in n_silver[key]:
-                export.append((key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
-                labels.append('TP')
+                export.append(('TP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
             else:
-                labels.append('FP')
+                export.append(('FP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
 
     write_list(export, './coocurrences_positive.txt', True, 'latin-1')
