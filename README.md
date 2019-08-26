@@ -23,8 +23,7 @@ Note: You must unzip all folders into the root folder.
 
 ## Build train and test ML data
 
-   * python3 build_data.py --folder train
-   * python3 build_data.py --folder test/merged
+   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged
 
 ## Run RNN
 
@@ -34,5 +33,5 @@ Note: If you wish to train your own word embeddings, replace 'vectors_train_posi
 
 ## Normalize all genes and compare metrics with silver standard
 
-   * bash preprocess_dictionaries.sh and merge all dictionaries.txt2 into all_dics.txt2
+   * bash preprocess_dictionaries.sh
    * python3 build_metric.py
