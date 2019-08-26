@@ -4,6 +4,7 @@
 ''' 
 Author: Fabio Curi Paixao 
 fcuri91@gmail.com
+Date: 26.08.2019
  '''
 
 import os
