@@ -4,6 +4,7 @@
 ''' 
 Author: Fabio Curi Paixao 
 fcuri91@gmail.com
+Date: 26.08.2019
  '''
 
 import os
@@ -34,7 +35,7 @@ def GNormplus_into_BRAT(in_folder):
 
     for i, dic in enumerate(dictionaries):
 
-        globals()['dic_%s' %i] = eval(open("../dictionaries/" + dic, "r").read())
+        globals()['dic_%s' %i] = eval(open("./dictionaries/" + dic, "r").read())
         globals()['keyword_processor_%s' %i] = KeywordProcessor()
 
         for x in globals()['dic_%s' %i].keys():
