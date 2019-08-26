@@ -12,15 +12,7 @@ Date: 26.08.2019
 
 * Install GloVe: https://nlp.stanford.edu/projects/glove/
 
-# Extraction of TRI interactions at the sentence level
-
-## Training Data: 
-
-   * ./train
-   
-## List of test PMIDs:
-
-   * test.txt
+* Download data: https://drive.google.com/open?id=1ukzakGjRBOka_zfJykg0dPd4o11sInC3 and unzip into root folder.
 
 ## Retrieve and do NER on test data:
 
