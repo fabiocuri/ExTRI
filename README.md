@@ -8,21 +8,19 @@ Date: 26.08.2019
 
 * pip3 install -r requirements.txt
 
-* Install GNormPlus (both Perl and Java's version) and unzip into root folder: https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
+* Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 
-* Install GloVe and unzip into root folder: https://nlp.stanford.edu/projects/glove/
+* Install GloVe: https://nlp.stanford.edu/projects/glove/
 
 * Download data: https://drive.google.com/open?id=1yMOO2DDF_Jc864mvGq0LIdQtXQuvkQhE and unzip into root folder.
 
 ## Retrieve and do NER on test data:
 
-   * cd GNormPlusPerl && bash retrieve_test.sh
-   * cd GNormPlusJava && bash annotate_test.sh
+   * mv retrieve_test.sh GNormPlusPerl && mv test.txt GNormPlusPerl && cd GNormPlusPerl && bash retrieve_test.sh
+   * mv annotate_test.sh GNormPlusJava && cd GNormPlusJava && bash annotate_test.sh
    * python3 export_abstracts.py --folder test
-   * ´bash minfner_test_gnormplus.sh´
-   * ´bash minfner_test.sh´
-   * python3 merge_ner.py --folder test
-   * python3 filter_words.py
+   * bash minfner_test_gnormplus.sh && bash minfner_test.sh
+   * python3 merge_ner.py --folder test && python3 filter_words.py
 
 ## Build train and test ML data
 
