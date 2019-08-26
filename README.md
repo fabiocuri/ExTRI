@@ -31,7 +31,8 @@ Date: 26.08.2019
 
 ## Run RNN
 
-   * If you wish to train your own word embeddings, replace 'vectors_train_positive_sentences.txt' by the new vectors.
+If you wish to train your own word embeddings, replace 'vectors_train_positive_sentences.txt' by the new vectors.
+
    * python3 RunRNN.py --max_num_words 500 --dim_LSTM 100 --attention Att --optimizer adam --oversampling ROS
    * Update the 'tags' column under test/merged_data.csv with predictions
 
