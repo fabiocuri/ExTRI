@@ -15,4 +15,4 @@ done
 echo "Finished! Have a nice day!"
 mkdir -p ./test/NTNU
 mkdir -p ./test/merged
-mv ./test/text/*.minfner ./test/NTNU
+for i in ./test/text/*.minfner; do mv "$i" ./test/NTNU; done
