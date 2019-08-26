@@ -7,11 +7,8 @@ Date: 26.08.2019
 # Installations:
 
 * pip3 install -r requirements.txt
-
 * Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
-
 * Install GloVe: https://nlp.stanford.edu/projects/glove/
-
 * Download data: https://drive.google.com/open?id=1yMOO2DDF_Jc864mvGq0LIdQtXQuvkQhE.
 
 (you must unzip all folders into the root folder)
