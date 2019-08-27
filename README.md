@@ -27,7 +27,7 @@ Note: You must unzip all folders into the root folder.
 
 ## Run RNN
 
-Note: If you wish to train your own word embeddings, replace 'vectors_train_positive_sentences.txt' by the new vectors.
+Note: If you wish to train your own word embeddings, replace 'vectors_train_positive_sentences_shortest_preprocessed.txt' by the new vectors.
 
    * python3 RunRNN.py --max_num_words 500 --dim_LSTM 100 --attention Att --optimizer adam --oversampling ROS
 
