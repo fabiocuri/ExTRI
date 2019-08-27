@@ -9,9 +9,7 @@ Date: 26.08.2019
 
 import os
 import keras
-import nltk
 import argparse
-import itertools
 import numpy as np
 from numpy import array
 import pandas as pd
