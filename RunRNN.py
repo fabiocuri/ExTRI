@@ -33,31 +33,6 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from imblearn.over_sampling import ADASYN, SMOTE, RandomOverSampler
 from keras.layers import Dense, Input, Flatten, Embedding, Dropout, LSTM, Bidirectional
 
-def preprocess(l):
-
-    tokens = nltk.word_tokenize(l.lower())
-
-    g1, g2 = -1, -1
-
-    for i, t in enumerate(tokens):
-        if 'gene1' in t:
-            g1 = i
-        if 'gene2' in t:
-            g2 = i
-
-    if g1 > 0 and g2 > 0:
-
-        WINDOW_SIZE = 10
-
-        # make sure that we don't overflow but using the min and max methods
-        FIRST_INDEX = max(g1 - WINDOW_SIZE , 0)
-        SECOND_INDEX = min(g2 + WINDOW_SIZE, len(tokens))
-   
-        l = tokens[FIRST_INDEX : SECOND_INDEX]
-        l = ' '.join(l)
-
-    return l
-
 class Attention(Layer):
 
     ''' Attention layer '''
@@ -337,7 +312,6 @@ if '__main__' == __name__:
 
     df = pd.read_csv('./train_data.csv')
     train = list(df['all_sentences'])
-    train = [preprocess(x) for x in train]
     labels = list(df['tags'])
 
     MNW = args.max_num_words
@@ -353,6 +327,5 @@ if '__main__' == __name__:
 
     df = pd.read_csv('./test/merged_data.csv')
     test = list(df['all_sentences'])
-    test = [preprocess(x) for x in test]
 
     run_RNN(train, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, "RNN_%s_%s_%s_%s_%s" % (str(MNW), str(LSTMD), str(ATT), str(OPT), str(oversampling)))
