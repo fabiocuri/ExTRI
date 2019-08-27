@@ -30,6 +30,7 @@ from keras import initializers, regularizers, constraints
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from imblearn.over_sampling import ADASYN, SMOTE, RandomOverSampler
 from keras.layers import Dense, Input, Flatten, Embedding, Dropout, LSTM, Bidirectional
+from ML import preprocess
 
 class Attention(Layer):
 
@@ -264,7 +265,7 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
 
         # Model parameters
 
-        early_stopping = EarlyStopping(monitor = 'val_loss', patience = 2, verbose = 0, mode= 'min')
+        early_stopping = EarlyStopping(monitor = 'val_loss', patience = 5, verbose = 0, mode= 'min')
         model_filepath_weights = cwd + '/models/' + model_name + '_' + str(n_) + '.h5'
         model_filepath_json = cwd + '/models/' + model_name + '_' + str(n_) + '.json'
 
@@ -290,7 +291,7 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
 
         y_pred = model.predict(data_test)
         y_pred = y_pred.argmax(axis=-1)
-        write_list(y_pred, cwd + '/models/predictions_RNN.txt', iterate=True, encoding=encoding)
+        write_list(y_pred, cwd + '/models/predictions_RNN_shortest_preprocessed.txt', iterate=True, encoding=encoding)
 
 if '__main__' == __name__:
 
@@ -309,7 +310,7 @@ if '__main__' == __name__:
     args = parser.parse_args()
 
     df = pd.read_csv('./train_data.csv')
-    train = list(df['all_sentences'])
+    train = read_as_list('./train_preprocessed.txt', encoding='latin-1')
     labels = list(df['tags'])
 
     MNW = args.max_num_words
@@ -321,9 +322,9 @@ if '__main__' == __name__:
     MSL = 100 # Maximum sequence lengths.
     VALIDATION_SPLIT = 0.2 # Validation %
 
-    path_to_glove = './vectors_train_positive_sentences.txt'
+    path_to_glove = './vectors_train_positive_sentences_shortest_preprocessed.txt'
 
     df = pd.read_csv('./test/merged_data.csv')
-    test = list(df['all_sentences'])
+    test = read_as_list('./test_preprocessed.txt', encoding='latin-1')
 
     run_RNN(train, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, "RNN_%s_%s_%s_%s_%s" % (str(MNW), str(LSTMD), str(ATT), str(OPT), str(oversampling)))
