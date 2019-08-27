@@ -309,7 +309,6 @@ if '__main__' == __name__:
 
     args = parser.parse_args()
 
-    df = pd.read_csv('./train_data.csv')
     train = read_as_list('./train_preprocessed.txt', encoding='latin-1')
     labels = list(df['tags'])
 
@@ -324,7 +323,6 @@ if '__main__' == __name__:
 
     path_to_glove = './vectors_train_positive_sentences_shortest_preprocessed.txt'
 
-    df = pd.read_csv('./test/merged_data.csv')
     test = read_as_list('./test_preprocessed.txt', encoding='latin-1')
 
     run_RNN(train, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, "RNN_%s_%s_%s_%s_%s" % (str(MNW), str(LSTMD), str(ATT), str(OPT), str(oversampling)))
