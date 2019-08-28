@@ -23,8 +23,7 @@ Note: You must unzip all folders into the root folder.
 
 ## Preprocess and build train and test ML data
 
-   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged
-   * python3 preprocessing.py
+   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py
 
 ## OPTION 1: Run RNN
 
