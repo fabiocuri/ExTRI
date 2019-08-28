@@ -290,7 +290,7 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
 
         y_pred = model.predict(data_test)
         y_pred = y_pred.argmax(axis=-1)
-        write_list(y_pred, cwd + '/models/predictions_RNN_shortest_preprocessed.txt', iterate=True, encoding=encoding)
+        write_list(y_pred, cwd + '/models/predictions.txt', iterate=True, encoding=encoding)
 
 if '__main__' == __name__:
 
