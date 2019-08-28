@@ -21,11 +21,10 @@ Note: You must unzip all folders into the root folder.
    * bash minfner_test_gnormplus.sh && bash minfner_test.sh
    * python3 merge_ner.py --folder test && python3 filter_words.py
 
-## Build train and test ML data
+## Preprocess and build train and test ML data
 
    * python3 build_data.py --folder train && python3 build_data.py --folder test/merged
-   
-In this step, a preprocessing is done under 'preprocess_text'. Then, train_preprocessed.txt and test_preprocessed.txt are the preprocessed sentences with additional lowercasing, integer, white space and stop-words removal, and stemming (check preprocessing.py)
+   * python3 preprocessing.py
 
 ## OPTION 1: Run RNN
 
