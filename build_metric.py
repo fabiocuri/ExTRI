@@ -56,7 +56,7 @@ if '__main__' == __name__:
 
     # Export positive sentences
     df = pd.read_csv('./test/merged_data.csv')
-    labels = read_as_list('./models/predictions_RNN_shortest_preprocessed.txt', encoding='latin-1')
+    labels = read_as_list('./models/predictions.txt', encoding='latin-1')
 
     map_idx = {}
     map_idx['0'] = 'activation'
@@ -75,7 +75,7 @@ if '__main__' == __name__:
     export = list(set(export))
     final.append('#PMID:Sentence\tTagRNN\tTF\tTG\tSentence')
     final += export
-    write_list(final, './test/predictions_RNN_shortest_preprocessed.txt', True, 'latin-1')
+    write_list(final, './test/predictions.txt', True, 'latin-1')
 
     silver_standard = read_as_list('ExTRI_confidence', encoding='latin-1')[2:]
 
@@ -103,4 +103,4 @@ if '__main__' == __name__:
             else:
                 export.append(('FP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
 
-    write_list(export, './coocurrences_RNN_shortest_preprocessed.txt', True, 'latin-1')
+    write_list(export, './coocurrences.txt', True, 'latin-1')
