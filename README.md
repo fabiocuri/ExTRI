@@ -25,13 +25,19 @@ Note: You must unzip all folders into the root folder.
 
    * python3 build_data.py --folder train && python3 build_data.py --folder test/merged
 
-## Run RNN
+## OPTION 1: Run RNN
 
 Note: If you wish to train your own word embeddings, replace 'vectors_train_positive_sentences_shortest_preprocessed.txt' by the new vectors.
 
    * python3 RunRNN.py --max_num_words 500 --dim_LSTM 100 --attention Att --optimizer adam --oversampling ROS
+   
+## OPTION 2: Run SVM
+
+   * python3 SVM.py
 
 ## Normalize all genes and compare metrics with silver standard
 
    * bash preprocess_dictionaries.sh
    * python3 build_metric.py
+   
+
