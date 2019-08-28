@@ -30,7 +30,6 @@ from keras import initializers, regularizers, constraints
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from imblearn.over_sampling import ADASYN, SMOTE, RandomOverSampler
 from keras.layers import Dense, Input, Flatten, Embedding, Dropout, LSTM, Bidirectional
-from ML import preprocess
 
 class Attention(Layer):
 
