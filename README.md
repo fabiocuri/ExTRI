@@ -24,6 +24,8 @@ Note: You must unzip all folders into the root folder.
 ## Build train and test ML data
 
    * python3 build_data.py --folder train && python3 build_data.py --folder test/merged
+   
+In this step, a preprocessing is done under 'preprocess_text'. Then, train_preprocessed.txt and test_preprocessed.txt are the preprocessed sentences with additional lowercasing, integer, white space and stop-words removal, and stemming (check preprocessing.py)
 
 ## OPTION 1: Run RNN
 
@@ -31,9 +33,13 @@ Note: If you wish to train your own word embeddings, replace 'vectors_train_posi
 
    * python3 RunRNN.py --max_num_words 500 --dim_LSTM 100 --attention Att --optimizer adam --oversampling ROS
    
+Features: word embeddings of the preprocessed sentences with shortest path between gene1 and gene2.
+   
 ## OPTION 2: Run SVM
 
    * python3 SVM.py
+   
+Features: TF-IDF of the preprocessed sentences with shortest path between gene1 and gene2.
 
 ## Normalize all genes and compare metrics with silver standard
 
