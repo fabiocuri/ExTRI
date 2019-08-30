@@ -39,9 +39,12 @@ Features: word embeddings of the preprocessed sentences with shortest path betwe
    
 Features: TF-IDF of the preprocessed sentences with shortest path between gene1 and gene2.
 
-## Normalize all genes and compare metrics with silver standard
+## Normalize all genes and compare metrics with silver standard (ExTRI_confidence)
 
    * bash preprocess_dictionaries.sh
    * python3 build_metric.py
    
 
+Stats on silver standard:
+
+TP: 94186
