@@ -37,7 +37,7 @@ from scipy.sparse import hstack
 import nltk
 import scipy
 
-def run_SVM(X, test, labels, data, f):
+def run_RF(X, test, labels, data, f):
 
     np.random.seed(500)
 
@@ -87,7 +87,7 @@ def build_features(documents):
 
 if '__main__' == __name__:
 
-    ''' Run Recurrent Neural Network '''
+    ''' Run Random Forest '''
 
     encoding = 'latin-1'
     cwd = os.getcwd()
@@ -104,4 +104,4 @@ if '__main__' == __name__:
             train = read_as_list('./data/train' + data + '.txt', encoding='latin-1')
             test = read_as_list('./data/test' + data + '.txt', encoding='latin-1')
 
-            run_SVM(train, test, labels, data, f)
+            run_RF(train, test, labels, data, f)
