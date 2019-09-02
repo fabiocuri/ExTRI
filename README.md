@@ -16,19 +16,19 @@ Note: You must unzip all folders into the root folder.
 
 ## Retrieve and do NER on test data:
 
-   * mv retrieve_test.sh GNormPlusPerl && mv test.txt GNormPlusPerl && cd GNormPlusPerl && bash retrieve_test.sh
-   * cd .. && mv annotate_test.sh GNormPlusJava && cd GNormPlusJava && bash annotate_test.sh
+   * mv retrieve_test.sh GNormPlusPerl && mv test.txt GNormPlusPerl && cd GNormPlusPerl && ./retrieve_test.sh
+   * cd .. && mv annotate_test.sh GNormPlusJava && cd GNormPlusJava && ./annotate_test.sh
    * cd .. && python3 export_abstracts.py --folder test
-   * bash minfner_test_gnormplus.sh && bash minfner_test.sh
+   * ./minfner_test_gnormplus.sh && ./minfner_test.sh
    * python3 merge_ner.py --folder test && python3 filter_words.py
 
 ## Preprocess, build train and test ML data, apply BPE (byte-pair encoding), train embeddings and normalize all genes
 
-   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py && bash BPE.sh && cd .. && bash preprocess_dictionaries.sh
+   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py && ./BPE.sh && cd .. && ./preprocess_dictionaries.sh
    
 ## Train and score
 
-   * run.sh
+   * ./run.sh
    * OPTION 1: RF with trigger word features and TF-IDF or BoW.
    * OPTION 2: SVM with trigger word features and TF-IDF or BoW.
    * OPTION 3: RNN with word embeddings. Note: If you wish to train your own word embeddings, you can use GloVe.
