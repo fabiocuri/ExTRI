@@ -107,11 +107,12 @@ if '__main__' == __name__:
     # Label as TP and FP
     for key in n_predicted.keys():
         for a in n_predicted[key]:
-            if (a[0], a[1]) in n_silver[key]:
-                export.append(('TP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
+            k = ':'.join(key.split(':')[0:2])
+            if (a[0], a[1]) in n_silver[k]:
+                export.append(('TP' + '\t' + k + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
                 c_tp+=1
             else:
-                export.append(('FP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
+                export.append(('FP' + '\t' + k + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
                 c_fp+=1
 
     precision = c_tp/(c_tp+c_fp)
