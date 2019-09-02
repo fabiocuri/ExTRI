@@ -1,5 +1,19 @@
 #OPTION 1: 
 
+#Train RF
+python3 RF.py
+#Score RF
+python3 score.py --predictions RF_predictions_preprocessed_TF-IDF
+python3 score.py --predictions RF_predictions_preprocessed_BPE_TF-IDF
+python3 score.py --predictions RF_predictions_preprocessed_shortest_TF-IDF
+python3 score.py --predictions RF_predictions_preprocessed_shortest_BPE_TF-IDF
+python3 score.py --predictions RF_predictions_preprocessed_BoW
+python3 score.py --predictions RF_predictions_preprocessed_BPE_BoW
+python3 score.py --predictions RF_predictions_preprocessed_shortest_BoW
+python3 score.py --predictions RF_predictions_preprocessed_shortest_BPE_BoW
+
+#OPTION 2: 
+
 #Train SVM
 python3 SVM.py
 #Score SVM
@@ -12,7 +26,7 @@ python3 score.py --predictions SVM_predictions_preprocessed_BPE_BoW
 python3 score.py --predictions SVM_predictions_preprocessed_shortest_BoW
 python3 score.py --predictions SVM_predictions_preprocessed_shortest_BPE_BoW
 
-#OPTION 2: 
+#OPTION 3: 
 
 #Train RNN
 python3 RunRNN.py --data preprocessed --max_num_words 500 --dim_LSTM 100
@@ -48,6 +62,3 @@ python3 score.py --predictions RNN_1000_500_preprocessed_predictions
 python3 score.py --predictions RNN_1000_500_preprocessed_BPE_predictions
 python3 score.py --predictions RNN_1000_500_preprocessed_shortest_predictions
 python3 score.py --predictions RNN_1000_500_preprocessed_shortest_BPE_predictions
-
-
-
