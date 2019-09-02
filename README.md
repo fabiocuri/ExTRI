@@ -24,7 +24,7 @@ Note: You must unzip all folders into the root folder.
 
 ## Preprocess, build train and test ML data, apply BPE (byte-pair encoding), train embeddings and normalize all genes
 
-   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py && bash BPE.sh && bash preprocess_dictionaries.sh
+   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py && bash BPE.sh && cd .. && bash preprocess_dictionaries.sh
    
 ## Train and score
 
