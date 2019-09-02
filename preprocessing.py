@@ -35,8 +35,14 @@ if '__main__' == __name__:
     train = pd.read_csv('./train_data.csv')
     test = pd.read_csv('./test/merged_data.csv')
 
-    train = [preprocess(x) for x in list(train['all_sentences_shortest'])]
-    test = [preprocess(x) for x in list(test['all_sentences_shortest'])]
+    train_out = [preprocess(x) for x in list(train['all_sentences'])]
+    test_out = [preprocess(x) for x in list(test['all_sentences'])]
 
-    write_list(train, './train_preprocessed_shortest.txt', True, 'latin-1')
-    write_list(test, './test_preprocessed_shortest.txt', True, 'latin-1')
+    write_list(train_out, './train_preprocessed.txt', True, 'latin-1')
+    write_list(test_out, './test_preprocessed.txt', True, 'latin-1')
+
+    train_out = [preprocess(x) for x in list(train['all_sentences_shortest'])]
+    test_out = [preprocess(x) for x in list(test['all_sentences_shortest'])]
+
+    write_list(train_out, './train_preprocessed_shortest.txt', True, 'latin-1')
+    write_list(test_out, './test_preprocessed_shortest.txt', True, 'latin-1')
