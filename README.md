@@ -11,7 +11,7 @@ Note: You must unzip all folders into the root folder.
 * pip3 install -r requirements.txt
 * Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/ and place folders 'GNormPlusPerl' and 'GNormPlusJava' in the root folder.
 * Install GloVe and place the folder 'glove' in the root folder: https://nlp.stanford.edu/projects/glove/ 
-* Download data: https://drive.google.com/open?id=1yMOO2DDF_Jc864mvGq0LIdQtXQuvkQhE and place subfolders in the root folder.
+* Download data: https://drive.google.com/file/d/1d3Q4h6biExbBiSEDG9JmbqO03zsW60mo/view?usp=sharing and place subfolders in the root folder.
 * Clone the repository for BPE and place folder in the root folder: https://github.com/rsennrich/subword-nmt
 
 ## Retrieve and do NER on test data:
