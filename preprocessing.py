@@ -1,14 +1,10 @@
 import re
-import string
-import nltk
 import pandas as pd
-from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from spacy.lang.en.stop_words import STOP_WORDS
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
-from textblob import TextBlob
 from export_abstracts import read_as_list, write_list
 
 def preprocess(text):
