@@ -35,7 +35,7 @@ Note: You must unzip all folders into the root folder.
    * OPTION 1: SVM with trigger word features and TF-IDF or BoW.
    * OPTION 2: RNN with word embeddings. Note: If you wish to train your own word embeddings, you can use GloVe.
    
-Results on silver standard:
+## Results on silver standard (Florian high confidence):
 
 ###### RF_predictions_preprocessed_TF-IDF: 
 ###### PRECISION = 0.30025667440764087, RECALL =  : 0.2634554396286253, F1-SCORE =  : 0.21149080354452487
