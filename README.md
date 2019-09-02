@@ -9,21 +9,22 @@ Date: 26.08.2019
 Note: You must unzip all folders into the root folder.
 
 * pip3 install -r requirements.txt
-* Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
-* Install GloVe: https://nlp.stanford.edu/projects/glove/
-* Download data: https://drive.google.com/open?id=1yMOO2DDF_Jc864mvGq0LIdQtXQuvkQhE.
+* Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/ and place folders 'GNormPlusPerl' and 'GNormPlusJava' in the root folder.
+* Install GloVe and place the folder 'glove' in the root folder: https://nlp.stanford.edu/projects/glove/ 
+* Download data: https://drive.google.com/open?id=1yMOO2DDF_Jc864mvGq0LIdQtXQuvkQhE and place subfolders in the root folder.
+* Clone the repository for BPE and place folder in the root folder: https://github.com/rsennrich/subword-nmt
 
 ## Retrieve and do NER on test data:
 
    * mv retrieve_test.sh GNormPlusPerl && mv test.txt GNormPlusPerl && cd GNormPlusPerl && bash retrieve_test.sh
-   * mv annotate_test.sh GNormPlusJava && cd GNormPlusJava && bash annotate_test.sh
-   * python3 export_abstracts.py --folder test
+   * cd .. && mv annotate_test.sh GNormPlusJava && cd GNormPlusJava && bash annotate_test.sh
+   * cd .. && python3 export_abstracts.py --folder test
    * bash minfner_test_gnormplus.sh && bash minfner_test.sh
    * python3 merge_ner.py --folder test && python3 filter_words.py
 
-## Preprocess and build train and test ML data
+## Preprocess, build train and test ML data and apply BPE (byte-pair encoding)
 
-   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py
+   * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py && bash BPE.sh
    
 ## Normalize all genes
 
