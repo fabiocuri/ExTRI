@@ -10,6 +10,7 @@ Date: 26.08.2019
 import pandas as pd
 from export_abstracts import read_as_list, write_list
 from collections import defaultdict, Counter
+import argparse
 
 def normalize(dictionary, label):
 
@@ -54,9 +55,16 @@ def normalize(dictionary, label):
 
 if '__main__' == __name__:
 
+    parser = argparse.ArgumentParser(description='.')
+    parser.add_argument('--predictions', type=str, default=None, help="""Predictions file.""")
+
+    args = parser.parse_args()
+
+    predictions = args.predictions
+
     # Export positive sentences
     df = pd.read_csv('./test/merged_data.csv')
-    labels = read_as_list('./models/predictions.txt', encoding='latin-1')
+    labels = read_as_list('./models/' + predictions + '.txt', encoding='latin-1')
 
     map_idx = {}
     map_idx['0'] = 'activation'
@@ -75,7 +83,7 @@ if '__main__' == __name__:
     export = list(set(export))
     final.append('#PMID:Sentence\tTagRNN\tTF\tTG\tSentence')
     final += export
-    write_list(final, './test/predictions.txt', True, 'latin-1')
+    write_list(final, './models/' + predictions + '_sentences.txt', True, 'latin-1')
 
     silver_standard = read_as_list('ExTRI_confidence', encoding='latin-1')[2:]
 
@@ -95,12 +103,21 @@ if '__main__' == __name__:
 
     export = []
 
+    c_tp, c_fp = 0, 0
     # Label as TP and FP
     for key in n_predicted.keys():
         for a in n_predicted[key]:
             if (a[0], a[1]) in n_silver[key]:
                 export.append(('TP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
+                c_tp+=1
             else:
                 export.append(('FP' + '\t' + key + '\t' +  a[0] + '\t' + a[1]+ '\t' + a[2]))
+                c_fp+=1
 
-    write_list(export, './coocurrences.txt', True, 'latin-1')
+    precision = c_tp/(c_tp+c_fp)
+    recall = c_tp/(c_tp+(len(silver_standard)-c_tp))
+    f1 = 2*c_tp/(2*c_tp+2*c_fp+(len(silver_standard)-c_tp))
+
+    print(predictions + ': PRECISION = ' + str(precision) + ', RECALL = ' + ' : ' + str(recall) + ', F1-SCORE = ' + ' : ' + str(f1))
+
+    write_list(export, './models/' + predictions + '_coocurrences.txt', True, 'latin-1')
