@@ -12,6 +12,7 @@ import keras
 import argparse
 import numpy as np
 from numpy import array
+import pandas as pd
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
@@ -102,7 +103,7 @@ class Attention(Layer):
     def compute_output_shape(self, input_shape):
         return input_shape[0], self.features_dim
 
-def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, model_name):
+def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, model_name, DATA):
 
     ''' Recurrent Neural Networks with Attention enabled '''
 
@@ -113,8 +114,6 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
     MAX_SEQUENCE_LENGTH = MSL
     MAX_NB_WORDS = MNW
     LSTM_DIM = LSTMD
-    ATTENTION = ATT
-    OPTIMIZER = OPT
 
     # Categorize target labels !
 
@@ -183,20 +182,8 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
 
         # Oversampling of minority label in training set
 
-        if oversampling == "ADASYN":
-
-            ada = ADASYN(random_state=42, sampling_strategy='minority')
-            X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
-
-        if oversampling == "SMOTE":
-
-            ada = SMOTE(random_state=42, sampling_strategy='minority')
-            X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
-
-        if oversampling == "ROS":
-
-            ada = RandomOverSampler(random_state=42, sampling_strategy='minority')
-            X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
+        ada = RandomOverSampler(random_state=42, sampling_strategy='minority')
+        X_train_resampled, y_train_resampled = ada.fit_sample(x_train, y_train)
 
         # Build GloVe dictionaries
 
@@ -225,19 +212,11 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
         sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
         embedded_sequences = embedding_layer(sequence_input)
 
-        if ATTENTION=='Att':
+        model_type = "Bidirectional LSTM with Attention"
 
-            model_type = "Bidirectional LSTM with Attention"
-
-            out = Bidirectional(LSTM(LSTM_DIM, return_sequences=True, dropout=0.30, recurrent_dropout=0.30))(embedded_sequences)
-            out = Attention(MAX_SEQUENCE_LENGTH)(out)
-            out = Dense(LSTM_DIM, activation="relu")(out)
-
-        else:
-
-            model_type = "Bidirectional LSTM"
-
-            out = Bidirectional(LSTM(LSTM_DIM))(embedded_sequences)
+        out = Bidirectional(LSTM(LSTM_DIM, return_sequences=True, dropout=0.30, recurrent_dropout=0.30))(embedded_sequences)
+        out = Attention(MAX_SEQUENCE_LENGTH)(out)
+        out = Dense(LSTM_DIM, activation="relu")(out)
 
         out = Dropout(0.30)(out)
         out = Dense(n_labels, activation="softmax")(out)
@@ -251,13 +230,7 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
 
         # Model optimizer and metrics
 
-        if OPTIMIZER=='adam':
-
-            opt = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
-
-        if OPTIMIZER=='rmsprop':
-
-            opt = RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.0)
+        opt = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
 
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
@@ -275,7 +248,7 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
             checkpoint = ModelCheckpoint(model_filepath_weights, monitor='val_loss', verbose = 0, save_best_only=True, mode='min')
             callbacks_list = [early_stopping, checkpoint]
 
-        history = model.fit(X_train_resampled, y_train_resampled, validation_data=(x_val, y_val), epochs=100, callbacks=callbacks_list, verbose = 1)
+        history = model.fit(X_train_resampled, y_train_resampled, validation_data=(x_val, y_val), epochs=200, callbacks=callbacks_list, verbose = 1)
 
         # serialize model to JSON
         model_json = model.to_json()
@@ -289,7 +262,7 @@ def run_RNN(X, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, 
 
         y_pred = model.predict(data_test)
         y_pred = y_pred.argmax(axis=-1)
-        write_list(y_pred, cwd + '/models/predictions.txt', iterate=True, encoding=encoding)
+        write_list(y_pred, cwd + '/models/' + str(model_name) + '_predictions' + '.txt', iterate=True, encoding=encoding)
 
 if '__main__' == __name__:
 
@@ -299,28 +272,26 @@ if '__main__' == __name__:
     cwd = os.getcwd()
 
     parser = argparse.ArgumentParser(description='Hyper-parameters of the model.')
+    parser.add_argument('--data', type=str, default=None, help="""Data.""")
     parser.add_argument('--max_num_words', type=int, help="""Maximum number of words.""")
     parser.add_argument('--dim_LSTM', type=int, help="""Dimension of the LSTM layer.""")
-    parser.add_argument('--attention', type=str, default=None, help="""Whether to use the attention mechanism.""")
-    parser.add_argument('--optimizer', type=str, default=None, help="""Optimizer of the RNN.""")
-    parser.add_argument('--oversampling', type=str, default=None, help="""Oversampling algorithm.""")
 
     args = parser.parse_args()
 
-    train = read_as_list('./train_preprocessed.txt', encoding='latin-1')
+    DATA = args.data
+
+    train = read_as_list('./data/train_' + DATA + '.txt', encoding='latin-1')
+    df = pd.read_csv('./train_data.csv')
     labels = list(df['tags'])
 
     MNW = args.max_num_words
     LSTMD = args.dim_LSTM
-    ATT = args.attention
-    OPT = args.optimizer
-    oversampling = args.oversampling
 
     MSL = 100 # Maximum sequence lengths.
     VALIDATION_SPLIT = 0.2 # Validation %
 
-    path_to_glove = './vectors_train_positive_sentences_shortest_preprocessed.txt'
+    path_to_glove = './data/vectors_train_' + DATA + '.txt'
 
-    test = read_as_list('./test_preprocessed.txt', encoding='latin-1')
+    test = read_as_list('./data/test_' + DATA + '.txt', encoding='latin-1')
 
-    run_RNN(train, test, labels, path_to_glove, MNW, LSTMD, ATT, OPT, oversampling, "RNN_%s_%s_%s_%s_%s" % (str(MNW), str(LSTMD), str(ATT), str(OPT), str(oversampling)))
+    run_RNN(train, test, labels, path_to_glove, MNW, LSTMD, "RNN_%s_%s_%s" % (str(MNW), str(LSTMD), str(DATA)), DATA)
