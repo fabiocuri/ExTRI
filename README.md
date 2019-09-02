@@ -32,8 +32,9 @@ Note: You must unzip all folders into the root folder.
 ## Train and score
 
    * run.sh
-   * OPTION 1: SVM with trigger word features and TF-IDF or BoW.
-   * OPTION 2: RNN with word embeddings. Note: If you wish to train your own word embeddings, you can use GloVe.
+   * OPTION 1: RF with trigger word features and TF-IDF or BoW.
+   * OPTION 2: SVM with trigger word features and TF-IDF or BoW.
+   * OPTION 3: RNN with word embeddings. Note: If you wish to train your own word embeddings, you can use GloVe.
    
 ## Results on silver standard (Florian high confidence):
 
