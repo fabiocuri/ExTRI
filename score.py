@@ -118,6 +118,6 @@ if '__main__' == __name__:
     recall = c_tp/(c_tp+(len(silver_standard)-c_tp))
     f1 = 2*c_tp/(2*c_tp+2*c_fp+(len(silver_standard)-c_tp))
 
-    print(predictions + ': PRECISION = ' + str(precision) + ', RECALL = ' + ' : ' + str(recall) + ', F1-SCORE = ' + ' : ' + str(f1))
+    print(predictions + ': PRECISION = ' + str(precision) + ', RECALL = ' + str(recall) + ', F1-SCORE = ' + str(f1))
 
     write_list(export, './models/' + predictions + '_coocurrences.txt', True, 'latin-1')
