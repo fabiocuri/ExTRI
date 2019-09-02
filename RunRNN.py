@@ -12,7 +12,6 @@ import keras
 import argparse
 import numpy as np
 from numpy import array
-import pandas as pd
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
