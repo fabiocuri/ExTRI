@@ -24,27 +24,17 @@ Note: You must unzip all folders into the root folder.
 ## Preprocess and build train and test ML data
 
    * python3 build_data.py --folder train && python3 build_data.py --folder test/merged && python3 preprocessing.py
-
-## OPTION 1: Run RNN
-
-Note: If you wish to train your own word embeddings, replace 'vectors_train_positive_sentences_shortest_preprocessed.txt' by the new vectors.
-
-   * python3 RunRNN.py --max_num_words 500 --dim_LSTM 100 --attention Att --optimizer adam --oversampling ROS
    
-Features: word embeddings of the preprocessed sentences with shortest path between gene1 and gene2.
-   
-## OPTION 2: Run SVM
-
-   * python3 SVM.py
-   
-Features: TF-IDF of the preprocessed sentences with shortest path between gene1 and gene2.
-
-## Normalize all genes and compare metrics with silver standard (ExTRI_confidence)
+## Normalize all genes
 
    * bash preprocess_dictionaries.sh
-   * python3 build_metric.py
    
+## Train and score
 
+   * run.sh
+   * OPTION 1: SVM with TF-IDF or BoW.
+   * OPTION 2: RNN with word embeddings. Note: If you wish to train your own word embeddings, you can use GloVe.
+   
 Stats on silver standard:
 
 TP: 94186
