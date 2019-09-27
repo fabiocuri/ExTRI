@@ -14,13 +14,9 @@ Note: Start your venv and unzip all folders into the root folder.
 * Clone the Byte-pair encoding repository: https://github.com/rsennrich/subword-nmt
 * Download data: https://drive.google.com/file/d/1bnNKFUwPY0rwh5mHIk40pCfoc9z30R5j/view?usp=sharing
 
-## STEP 1: Prepare data for Triage and Relation Extraction
+## STEP 1: TRIAGE
 
-   * prepare_triage.sh && prepare_re.sh
-
-## STEP 2: Run Triage classifier
-
-   * bash triage.sh
+   * triage.sh 
 
 RNN Training results of 2-class classification(10-fold averaged):
 
@@ -44,7 +40,9 @@ triage_data_preprocessed RNN_500_500_Att_adam_ROS	0.8561052975344314	0.882283996
 
 triage_data_preprocessed_BPE RNN_500_500_Att_adam_ROS	0.84060149495536	0.8962430682878091	0.8629526929408377
 
-## STEP 3: Run Relation Extraction
+## STEP 2: RELATION EXTRACTION
+
+   * re.sh
 
    * bash re.sh
 
