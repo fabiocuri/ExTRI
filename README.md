@@ -6,7 +6,7 @@ Date: 27.09.2019
 
 # Installations:
 
-Note: Start your venv and unzip all folders into the root folder.
+Note: Start your venv and unzip all (sub-)folders into the root folder.
 
 * pip3 install -r requirements.txt
 * Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
