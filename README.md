@@ -16,13 +16,10 @@ Note: Start your venv and unzip all folders into the root folder.
 
 ## STEP 1: TRIAGE
 
-   * triage.sh 
+   * bash triage.sh 
 
-RNN Training results of 2-class classification(10-fold averaged):
-
-model/precision/recall/f1-score
-
-(*: best model)
+### RNN Training results (model/precision/recall/f1-score) of 2-class classification (10-fold averaged):
+### (*: best model)
 
 triage_data_original RNN_500_100_Att_adam_ROS	0.8389178114493057	0.8849179651255275	0.858478896163508
 
