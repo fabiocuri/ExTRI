@@ -12,7 +12,7 @@ Note: Start your venv and unzip all folders into the root folder.
 * Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 * Install GloVe: https://nlp.stanford.edu/projects/glove/
 * Clone the Byte-pair encoding repository: https://github.com/rsennrich/subword-nmt
-* Download data: https://drive.google.com/file/d/1gkra2bkqJXpSPEtmoK0at09Lf3O9VHg_/view?usp=sharing
+* Download data: https://drive.google.com/file/d/1bnNKFUwPY0rwh5mHIk40pCfoc9z30R5j/view?usp=sharing
 
 ## STEP 1: Prepare data for Triage and Relation Extraction
 
@@ -23,7 +23,9 @@ Note: Start your venv and unzip all folders into the root folder.
    * bash triage.sh
 
 RNN Training results of 2-class classification(10-fold averaged):
+
 model/precision/recall/f1-score
+
 (*: best model)
 
 triage_data_original RNN_500_100_Att_adam_ROS	0.8389178114493057	0.8849179651255275	0.858478896163508
@@ -47,7 +49,9 @@ triage_data_preprocessed_BPE RNN_500_500_Att_adam_ROS	0.84060149495536	0.8962430
    * bash re.sh
 
 SVM/RF/RNN Training results of 4-class classification (10-fold averaged):
+
 model/precision/recall/f1-score
+
 (*: best model)
 
 re_RF_predictions_original_TF-IDF	0.6903962978845054	0.5989969604100038	0.6236378942237686
