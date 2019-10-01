@@ -21,21 +21,17 @@ Note: Start your venv and unzip all folders into the root folder.
 ### RNN Training results (model/precision/recall/f1-score) of 2-class triage classification (10-fold averaged):
 ### (*: best model)
 
-triage_data_original_train re_RNN_predictions_RNN_500_100	0.8172	0.8734	0.8417
+| Model  | Precision | Recall | F1-score |
+| ------------- | ------------- | ------------- | ------------- |
+| triage_data_original_train_re_RNN_predictions_RNN_500_100	| 0.8172	| 0.8734	| 0.8417 |
+| triage_data_original_BPE_train_re_RNN_predictions_RNN_500_100 |	0.8286 |	0.8771 |	0.8473 |
+| *triage_data_preprocessed_train_re_RNN_predictions_RNN_500_100 |	0.8782 |	0.8934 |	0.8848 |
+| triage_data_preprocessed_BPE_train_re_RNN_predictions_RNN_500_100 |	0.8200 |	0.8751 | 0.8422 |
+| triage_data_original_train_re_RNN_predictions_RNN_500_500 |	0.8389 | 0.8836 |	0.8587 |
+| triage_data_original_BPE_train_re_RNN_predictions_RNN_500_500	| 0.8404 |	0.8592 |	0.8486 |
+| triage_data_preprocessed_train_re_RNN_predictions_RNN_500_500	| 0.8565 |	0.8972 |	0.8713 |
+| triage_data_preprocessed_BPE_train_re_RNN_predictions_RNN_500_500	| 0.8369 |	0.8713 |	0.8523 |
 
-triage_data_original_BPE_train re_RNN_predictions_RNN_500_100	0.8286	0.8771	0.8473
-
-*triage_data_preprocessed_train re_RNN_predictions_RNN_500_100	0.8782	0.8934	0.8848
-
-triage_data_preprocessed_BPE_train re_RNN_predictions_RNN_500_100	0.8200	0.8751	0.8422
-
-triage_data_original_train re_RNN_predictions_RNN_500_500	0.8389	0.8836	0.8587
-
-triage_data_original_BPE_train re_RNN_predictions_RNN_500_500	0.8404	0.8592	0.8486
-
-triage_data_preprocessed_train re_RNN_predictions_RNN_500_500	0.8565	0.8972	0.8713
-
-triage_data_preprocessed_BPE_train re_RNN_predictions_RNN_500_500	0.8369	0.8713	0.8523
 
 ### RF/SVM/RNN Training results (model/precision/recall/f1-score) of 4-class relation extraction classification (10-fold averaged):
 
