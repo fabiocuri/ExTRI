@@ -63,10 +63,14 @@ re_RNN_predictions_RNN_500_100_preprocessed	0.6606784421317221	0.656545444384507
 
    * bash score.sh 
 
-# Triage score: PRECISION = 0.8601576404780066, RECALL = 0.3323509185578151, F1-SCORE = 0.4614650115945983
-# Comment: the low recall is likely to be due to lack of representative data. Idea: add more sentences to the training corpus.
-# Output file: triage.output
+### Triage score: PRECISION = 0.8601576404780066, RECALL = 0.3323509185578151, F1-SCORE = 0.4614650115945983
 
-# Triage score: PRECISION = 0.2976730129948625, RECALL = 0.07320620899072049, F1-SCORE = 0.10320543044672459
-# Comment: add more training sentences.
-# Output file: re.output
+### Comment: the low recall is likely to be due to lack of representative data. Idea: add more sentences to the training corpus.
+
+### Output file: triage.output
+
+### Triage score: PRECISION = 0.2976730129948625, RECALL = 0.07320620899072049, F1-SCORE = 0.10320543044672459
+
+### Comment: add more training sentences.
+
+### Output file: re.output
