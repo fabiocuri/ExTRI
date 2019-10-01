@@ -14,40 +14,30 @@ Note: Start your venv and unzip all folders into the root folder.
 * Clone the Byte-pair encoding repository: https://github.com/rsennrich/subword-nmt
 * Download data: https://drive.google.com/file/d/1bnNKFUwPY0rwh5mHIk40pCfoc9z30R5j/view?usp=sharing
 
-## STEP 1: TRIAGE
+## Run Triage and Relation Extractor
 
-   * bash triage.sh 
+   * bash triage.sh && bash re.sh
 
-### RNN Training results (model/precision/recall/f1-score) of 2-class classification (10-fold averaged):
+### RNN Training results (model/precision/recall/f1-score) of 2-class triage classification (10-fold averaged):
 ### (*: best model)
 
-triage_data_original RNN_500_100_Att_adam_ROS	0.8389178114493057	0.8849179651255275	0.858478896163508
+triage_data_original_train re_RNN_predictions_RNN_500_100	0.8172899496916509	0.873464739593012	0.8417636310310135
 
-triage_data_original_BPE RNN_500_100_Att_adam_ROS	0.8322353942190691	0.8545545342307111	0.8405640864569198
+triage_data_original_BPE_train re_RNN_predictions_RNN_500_100	0.8286848109642235	0.8771871062833562	0.8473977599073972
 
-*triage_data_preprocessed RNN_500_100_Att_adam_ROS	0.8604594447424571	0.8947687779485536	0.8755859014962933
+*triage_data_preprocessed_train re_RNN_predictions_RNN_500_100	0.8782606876140656	0.8934898051687348	0.8848864125691396
 
-triage_data_preprocessed_BPE RNN_500_100_Att_adam_ROS	0.8384581351814943	0.9004145439315234	0.8654619401459156
+triage_data_preprocessed_BPE_train re_RNN_predictions_RNN_500_100	0.8200426546207111	0.8751892961791251	0.8422448031770753
 
-triage_data_original RNN_500_500_Att_adam_ROS	0.8510718830630231	0.8644009950615787	0.8550819379362637
+triage_data_original_train re_RNN_predictions_RNN_500_500	0.8389016610365303	0.883624387676662	0.8587850286111414
 
-triage_data_original_BPE RNN_500_500_Att_adam_ROS	0.8252016892639402	0.870820090874415	0.8453483797192888
+triage_data_original_BPE_train re_RNN_predictions_RNN_500_500	0.840492138368915	0.8592619840972443	0.8486416883577936
 
-triage_data_preprocessed RNN_500_500_Att_adam_ROS	0.8561052975344314	0.8822839967161163	0.8665894519176529
+triage_data_preprocessed_train re_RNN_predictions_RNN_500_500	0.8565220245298579	0.8972283371267343	0.8713344724368632
 
-triage_data_preprocessed_BPE RNN_500_500_Att_adam_ROS	0.84060149495536	0.8962430682878091	0.8629526929408377
+triage_data_preprocessed_BPE_train re_RNN_predictions_RNN_500_500	0.8369729262717879	0.8713734105075261	0.8523893330790683
 
-## STEP 2: RELATION EXTRACTION
-
-   * re.sh
-
-   * bash re.sh
-
-SVM/RF/RNN Training results of 4-class classification (10-fold averaged):
-
-model/precision/recall/f1-score
-
-(*: best model)
+### RF/SVM/RNN Training results (model/precision/recall/f1-score) of 4-class relation extraction classification (10-fold averaged):
 
 re_RF_predictions_original_TF-IDF	0.6903962978845054	0.5989969604100038	0.6236378942237686
 
@@ -55,7 +45,7 @@ re_RF_predictions_original_BoW	0.6939590930711909	0.6024125534995101	0.629446699
 
 re_RF_predictions_preprocessed_TF-IDF	0.7394796380090497	0.5908646941255637	0.6298070728691514
 
-re_RF_predictions_preprocessed_BoW	0.76028237514518	0.6271982087199479	0.6672203459788648
+*re_RF_predictions_preprocessed_BoW	0.76028237514518	0.6271982087199479	0.6672203459788648
 
 re_SVM_predictions_original_TF-IDF	0.6667149232688768	0.5732938803590976	0.6025314943302895
 
@@ -65,6 +55,18 @@ re_SVM_predictions_preprocessed_TF-IDF	0.6868570525632485	0.6014914819262646	0.6
 
 re_SVM_predictions_preprocessed_BoW	0.6784873008065333	0.6479366370670718	0.6606837148847652
 
-*re_RNN_predictions_RNN_500_100_original	0.6738366908142693	0.6771629414593814	0.6693733170575776
+re_RNN_predictions_RNN_500_100_original	0.6651991482079803	0.6687302732202188	0.66153251496263
 
-re_RNN_predictions_RNN_500_100_preprocessed	0.6521526027847294	0.6520864173562056	0.646751208233448
+re_RNN_predictions_RNN_500_100_preprocessed	0.6606784421317221	0.6565454443845071	0.6519647821159091
+
+## Score best models
+
+   * bash score.sh 
+
+# Triage score: PRECISION = 0.8601576404780066, RECALL = 0.3323509185578151, F1-SCORE = 0.4614650115945983
+# Comment: the low recall is likely to be due to lack of representative data. Idea: add more sentences to the training corpus.
+# Output file: triage.output
+
+# Triage score: PRECISION = 0.2976730129948625, RECALL = 0.07320620899072049, F1-SCORE = 0.10320543044672459
+# Comment: add more training sentences.
+# Output file: re.output
