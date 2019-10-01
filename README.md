@@ -47,18 +47,13 @@ Note: Start your venv and unzip all folders into the root folder.
 | re_RNN_predictions_RNN_500_100_original |	0.6651 |	0.6687 |	0.6615 |
 | re_RNN_predictions_RNN_500_100_preprocessed |	0.6606 |	0.6565 |	0.6519 |
 
-## Score best models
+### Score best models
 
    * bash score.sh 
-
-### Triage score: PRECISION = 0.8601, RECALL = 0.3323, F1-SCORE = 0.4614
+   
+| Task  | Precision | Recall | F1-score | Output file |
+| ------------- | ------------- | ------------- | ------------- |------------- |
+| Triage |	0.8601 |	0.3323 |	0.4614 | triage.output |
+| RE |	0.2976 |	0.0732 |	0.1032 | re.output |
 
 ### Comment: the low recall is likely to be due to lack of representative data. Idea: add more sentences to the training corpus.
-
-### Output file: triage.output
-
-### Triage score: PRECISION = 0.2976, RECALL = 0.0732, F1-SCORE = 0.1032
-
-### Comment: add more training sentences.
-
-### Output file: re.output
