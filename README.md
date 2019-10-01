@@ -18,7 +18,7 @@ Note: Start your venv and unzip all folders into the root folder.
 
    * bash triage.sh && bash re.sh
 
-### RNN Training results (model/precision/recall/f1-score) of 2-class triage classification (10-fold averaged):
+### RNN Training results of 2-class triage classification (10-fold averaged):
 ### (*: best model)
 
 | Model  | Precision | Recall | F1-score |
@@ -33,27 +33,20 @@ Note: Start your venv and unzip all folders into the root folder.
 | triage_data_preprocessed_BPE_train_re_RNN_predictions_RNN_500_500	| 0.8369 |	0.8713 |	0.8523 |
 
 
-### RF/SVM/RNN Training results (model/precision/recall/f1-score) of 4-class relation extraction classification (10-fold averaged):
+### RF/SVM/RNN Training results of 4-class relation extraction classification (10-fold averaged):
 
-re_RF_predictions_original_TF-IDF	0.6903	0.5989	0.6236
-
-re_RF_predictions_original_BoW	0.6939	0.6024	0.62944
-
-re_RF_predictions_preprocessed_TF-IDF	0.7394	0.5908	0.6298
-
-*re_RF_predictions_preprocessed_BoW	0.7602	0.6271	0.6672
-
-re_SVM_predictions_original_TF-IDF	0.6667	0.5732	0.6025
-
-re_SVM_predictions_original_BoW	0.6445	0.6105	0.6240
-
-re_SVM_predictions_preprocessed_TF-IDF	0.6868	0.6014	0.6314
-
-re_SVM_predictions_preprocessed_BoW	0.6784	0.6479	0.6606
-
-re_RNN_predictions_RNN_500_100_original	0.6651	0.6687	0.6615
-
-re_RNN_predictions_RNN_500_100_preprocessed	0.6606	0.6565	0.6519
+| Model  | Precision | Recall | F1-score |
+| ------------- | ------------- | ------------- | ------------- |
+| re_RF_predictions_original_TF-IDF |	0.6903 |	0.5989 |	0.6236 |
+| re_RF_predictions_original_BoW |	0.6939 |	0.6024 |	0.62944 |
+| re_RF_predictions_preprocessed_TF-IDF |	0.7394 |	0.5908 |	0.6298 |
+| *re_RF_predictions_preprocessed_BoW |	0.7602 |	0.6271 |	0.6672 |
+| re_SVM_predictions_original_TF-IDF |	0.6667 |	0.5732 |	0.6025 |
+| re_SVM_predictions_original_BoW |	0.6445 |	0.6105 |	0.6240 |
+| re_SVM_predictions_preprocessed_TF-IDF |	0.6868 |	0.6014 |	0.6314 |
+| re_SVM_predictions_preprocessed_BoW |	0.6784 |	0.6479 |	0.6606 |
+| re_RNN_predictions_RNN_500_100_original |	0.6651 |	0.6687 |	0.6615 |
+| re_RNN_predictions_RNN_500_100_preprocessed |	0.6606 |	0.6565 |	0.6519 |
 
 ## Score best models
 
