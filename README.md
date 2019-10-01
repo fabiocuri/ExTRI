@@ -4,7 +4,7 @@ E-mail: fcuri91@gmail.com
 
 Date: 27.09.2019
 
-# Installations:
+### Installations:
 
 Note: Start your venv and unzip all folders into the root folder.
 
@@ -14,12 +14,11 @@ Note: Start your venv and unzip all folders into the root folder.
 * Clone the Byte-pair encoding repository: https://github.com/rsennrich/subword-nmt
 * Download data: https://drive.google.com/file/d/1bnNKFUwPY0rwh5mHIk40pCfoc9z30R5j/view?usp=sharing
 
-## Run Triage and Relation Extractor
+### Run Triage and Relation Extractor
 
    * bash triage.sh && bash re.sh
 
 ### RNN Training results of 2-class triage classification (10-fold averaged):
-### (*: best model)
 
 | Model  | Precision | Recall | F1-score |
 | ------------- | ------------- | ------------- | ------------- |
