@@ -56,4 +56,4 @@ Note: Start your venv and unzip all folders into the root folder.
 | Triage |	0.8601 |	0.3323 |	0.4614 | triage.output |
 | RE |	0.2976 |	0.0732 |	0.1032 | re.output |
 
-### Comment: the low recall is likely to be due to lack of representative data. Idea: add more sentences to the training corpus.
+##### Comment: the low recall is likely to be due to lack of representative data. Idea: add more sentences to the training corpus.
