@@ -47,7 +47,7 @@ Note: Start your venv and unzip all folders into the root folder.
 | re_RNN_predictions_RNN_500_100_original |	0.6651 |	0.6687 |	0.6615 |
 | re_RNN_predictions_RNN_500_100_preprocessed |	0.6606 |	0.6565 |	0.6519 |
 
-### Score best models
+### Score best models with silver standard
 
    * bash score.sh 
    
