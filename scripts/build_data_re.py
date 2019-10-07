@@ -8,7 +8,6 @@ Date: 07.10.2019
 '''
 
 import os
-cwd = os.getcwd()
 import argparse
 import nltk
 import spacy
@@ -21,6 +20,8 @@ from collections import Counter
 from networkx import dijkstra_path
 from export_abstracts import read_as_list, write_list
 from build_data_triage import preprocess, find_experimental_methods
+
+cwd = os.getcwd()
 
 def preprocess_text(l, nlp, all_entities):
 
