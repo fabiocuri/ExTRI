@@ -7,7 +7,6 @@ E-mail: fcuri91@gmail.com
 Date: 07.10.2019
 '''
 
-import os
 import argparse
 from os import listdir
 from flashtext import KeywordProcessor
