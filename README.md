@@ -16,6 +16,7 @@ Note: Start your venv and unzip all folders into the root folder.
 
 ### Train Triage and Relation Extractor
 
+   * chmod -R 777 ./
    * ./bash/triage.sh && ./bash/re.sh
 
 ### RNN Training results of 2-class text classification (10-fold averaged):
