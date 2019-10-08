@@ -32,7 +32,6 @@ if '__main__' == __name__:
 
     di = {True: 1, False: 0}
 
-    # The values 10 and 20 are replaced by 'A' and 'B'
     ann1['label'].replace(di, inplace=True)
 
     pmid_1, l_1, pmid_2, l_2, pmid_3, l_3 = list(ann1['pmid']), list(ann1['label']), [x[0] for x in ann2], [x[2] for x in ann2], [x[0] for x in ann3], [x[2] for x in ann3]
