@@ -32,7 +32,7 @@ Note: Start your venv and unzip all folders into the root folder.
 ### RF/SVM/RNN Training results of 4-class relation extraction classification (10-fold averaged):
 
 |Model|Precision|Recall|F1-score|
-|RF |-------------|-------------|-------------|
+|RF|||
 |re_train_original_TF-IDF|0.7207|0.6767|0.6875|
 |re_train_original_BoW|0.7207|0.6767|0.6875|
 
