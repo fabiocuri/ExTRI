@@ -30,9 +30,8 @@ Note: Start your venv and unzip all folders into the root folder.
 |triage_train_preprocessed_BPE|0.8516|0.8763|0.8607|
 
 ### RF/SVM/RNN Training results of 4-class relation extraction classification (10-fold averaged):
-
 |Model|Precision|Recall|F1-score|
-|RF_re_train_original_TF-IDF|0.7207|0.6767|0.6875|
+|RF_re_train_original_TFIDF|0.7207|0.6767|0.6875|
 
 ### Predict and score with best models. Reference: silver standard w/ high confidence 
 
