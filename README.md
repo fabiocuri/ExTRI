@@ -12,7 +12,7 @@ Note: Start your venv and unzip all folders into the root folder.
 * Install GNormPlus (both Perl and Java's version): https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/gnormplus/
 * Install GloVe: https://github.com/stanfordnlp/GloVe
 * Clone the Byte-pair encoding repository: https://github.com/rsennrich/subword-nmt
-* Download data: https://drive.google.com/file/d/1bnNKFUwPY0rwh5mHIk40pCfoc9z30R5j/view?usp=sharing
+* Download data: https://drive.google.com/file/d/1adDrt0jJcOsWMxVLDAZOSY4McZ7Gd8rT/view?usp=sharing
 
 ### Train Triage and Relation Extractor
 
