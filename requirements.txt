@@ -9,4 +9,3 @@ imblearn
 flashtext
 nltk
 spacy
-networkx
