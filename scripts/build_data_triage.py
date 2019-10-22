@@ -130,6 +130,7 @@ if '__main__' == __name__:
 
     encoding = "latin-1"
     nltk.download('punkt')
+    nltk.download('stopwords')
 
     parser = argparse.ArgumentParser(description='Options')
     parser.add_argument('--i1', type=str, help="""Folder with abstracts and annotations.""")
