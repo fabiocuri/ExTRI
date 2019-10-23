@@ -74,7 +74,7 @@ def run_SVM(X, test_x, labels_x, f, REPORT, out_dir, dic_dir):
 
     if REPORT == 'no':
 
-        l_results = 're_RF' + '\t' + str(np.mean(l_precision)) + '\t' + str(np.mean(l_recall)) + '\t' + str(np.mean(l_f1))
+        l_results = 're_SVM' + '\t' + str(np.mean(l_precision)) + '\t' + str(np.mean(l_recall)) + '\t' + str(np.mean(l_f1))
         print(l_results)
 
 if '__main__' == __name__:
